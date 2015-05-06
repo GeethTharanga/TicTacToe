@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace TicTacToe.Core
 {
 
-    
     public class GameState
     {
         public GameState Status { get; private set; }

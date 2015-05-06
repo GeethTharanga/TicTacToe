@@ -24,5 +24,8 @@ namespace TicTacToe.Core
             get { return CellType.Clear; }
             set { }
         }
+
+        public void StartGame() {  }
+        public void CancelGame(){}
     }
 }
