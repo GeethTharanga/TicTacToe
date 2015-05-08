@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Core\Agent\AI\AIAgent.cs" />
     <Compile Include="Core\Agent\AI\AIRandomAgent.cs" />
+    <Compile Include="Core\Agent\Human\HumanAgent.cs" />
     <Compile Include="Core\Agent\PlayingAgent.cs" />
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\GameState.cs" />
@@ -64,6 +65,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\UserInputBase.cs" />
     <Compile Include="Util\Config.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
