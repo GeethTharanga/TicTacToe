@@ -12,7 +12,7 @@ namespace TicTacToe.Core
         Clear=0, Player1, Player2
     }
     public enum Status
-    {
+    { 
         NotStarted, TurnP1, TurnP2, WonP1, WonP2,Tie, Cancelled
     }
     public enum Player
@@ -27,6 +27,10 @@ namespace TicTacToe.Core
         //attributes
         private CellType[,] cells;
         public Status  CurrentStatus { get; private set; }
+        /// <summary>
+        /// the 3 cell locations which constituted to the win
+        /// Null if no one has won yet
+        /// </summary>
         public int[,] WonConfiguration { get; private set; }
         
         //ctor
