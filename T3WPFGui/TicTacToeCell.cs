@@ -4,20 +4,47 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace T3WPFGui
 {
     public enum CellType
     {
-        O,X
+        Clear,O,X
     }
+    //Cell Mark Command
+   
+
+    //public class MarkCellCommand : ICommand 
+    //{
+        
+    //    public bool CanExecute(object parameter)
+    //    {
+    //        return false;
+    //    }
+
+    //    public event EventHandler CanExecuteChanged;
+
+    //    public void Execute(object parameter)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public void RaiseChanged()
+    //    {
+    //        if (CanExecuteChanged != null)
+    //            CanExecuteChanged(this, new EventArgs());
+    //    }
+    //}
+
     public class TicTacToeCell : INotifyPropertyChanged
     {
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private CellType? _type;
+        private CellType _type;
 
-        public CellType? Type
+        public CellType Type
         {
             get { return _type; }
             set { _type = value; Notify("Type"); }

@@ -1,10 +1,15 @@
 ﻿<Window x:Class="T3WPFGui.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:T3WPFGui"
         Title="MainWindow" Height="400" Width="534"
          DataContext = "{Binding RelativeSource={RelativeSource Self}}" 
-        Name="WndMain"
+        Name="WndMain" Closed="WndMain_Closed"
         >
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="local:Commands.MarkCell" Executed="Cell_Click" CanExecute="IsCellClickable" />
+    </Window.CommandBindings>
 
     <Grid>
         
@@ -23,10 +28,10 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate >
-                        <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn }">
+                        <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn }"
+                                 Command="local:Commands.MarkCell" CommandParameter="{Binding}" Tag="{Binding}" >
                             <StackPanel>
-                                <TextBlock Text="{Binding Row}"></TextBlock>
-                                <TextBlock Text="{Binding Col}"></TextBlock>
+                                <TextBlock Text="{Binding Type}"></TextBlock>
                             </StackPanel> 
                         </Button>
                         

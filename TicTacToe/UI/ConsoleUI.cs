@@ -11,7 +11,7 @@ namespace TicTacToe.UI
     {
         public event EventHandler UIOnClose;
 
-        public event Core.Agent.TTTMoveEventHandler UIOnMove;
+
 
         public void UIRefresh(Core.Board board, Core.Player thisPlayer)
         {
@@ -37,12 +37,15 @@ namespace TicTacToe.UI
             {
                 int row = int.Parse(Console.ReadLine());
                 int col = int.Parse(Console.ReadLine());
-                UIOnMove(this, new Core.Agent.TTTMoveEventArgs(row,col, Core.Player.Player1));
+                UIOnMove(this, new CellArgs { Col = col, Row = row });
             }
         }
         public void UIClose()
         {
             
         }
+
+
+        public event CellMoveEventHandler UIOnMove;
     }
 }

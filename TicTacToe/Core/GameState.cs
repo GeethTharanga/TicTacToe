@@ -10,9 +10,9 @@ namespace TicTacToe.Core
 
     public class GameState
     {
-        private Board board;
+      //  private Board board;
 
         public Player UIPlayer { get; private set; }
-        private PlayingAgent player1, player2;
+     //   private PlayingAgent player1, player2;
     }
 }

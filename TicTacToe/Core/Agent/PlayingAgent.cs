@@ -64,7 +64,8 @@ namespace TicTacToe.Core.Agent
         protected void CancelGame()
         {
             logger.Info("{0} Cancelling game.", ThisPlayer);
-            OnCancelGame(this, new EventArgs());
+            if(OnCancelGame != null)
+                OnCancelGame(this, new EventArgs());
         }
 
         public override string ToString()

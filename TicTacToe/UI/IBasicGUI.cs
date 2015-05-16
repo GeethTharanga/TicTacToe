@@ -12,7 +12,7 @@ namespace TicTacToe.UI
     public interface IBasicUI
     {
         event EventHandler UIOnClose;
-        event TTTMoveEventHandler UIOnMove;
+        event CellMoveEventHandler UIOnMove;
 
         void UIRefresh(Board board, Player thisPlayer);
         void UIStart();

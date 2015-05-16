@@ -25,7 +25,7 @@ namespace TicTacToe.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int AIThinkDuration {
             get {
                 return ((int)(this["AIThinkDuration"]));
