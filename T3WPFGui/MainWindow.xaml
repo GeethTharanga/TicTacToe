@@ -1,0 +1,39 @@
+﻿<Window x:Class="T3WPFGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="400" Width="534"
+         DataContext = "{Binding RelativeSource={RelativeSource Self}}" 
+        Name="WndMain"
+        >
+
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Background="Aqua">
+            <ItemsControl Name="CellControl" ItemsSource="{Binding Cells}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate >
+                        <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn }">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Row}"></TextBlock>
+                                <TextBlock Text="{Binding Col}"></TextBlock>
+                            </StackPanel> 
+                        </Button>
+                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+    </Grid>
+
+</Window>
