@@ -1,67 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace T3WPFGui
+﻿namespace T3WPFGui
 {
+    using System.ComponentModel;
+
     public enum CellType
     {
-        Clear,O,X
+        Clear, O, X
     }
-    //Cell Mark Command
-   
-
-    //public class MarkCellCommand : ICommand 
-    //{
-        
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return false;
-    //    }
-
-    //    public event EventHandler CanExecuteChanged;
-
-    //    public void Execute(object parameter)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public void RaiseChanged()
-    //    {
-    //        if (CanExecuteChanged != null)
-    //            CanExecuteChanged(this, new EventArgs());
-    //    }
-    //}
 
     public class TicTacToeCell : INotifyPropertyChanged
     {
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private CellType _type;
+        private CellType type;
 
         public CellType Type
         {
-            get { return _type; }
-            set { _type = value; Notify("Type"); }
+            get
+            {
+                return this.type;
+            }
+
+            set
+            {
+                this.type = value;
+                Notify("Type");
+            }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public int Row { get; set; }
-        public int Col { get; set; }
 
-        private void Notify(string field)
-        {
-            if(PropertyChanged != null )
-                 PropertyChanged(this, new PropertyChangedEventArgs(field));
-        }
+        public int Col { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0} : {1}x{2}", Type, Row, Col);
+            return string.Format("{0} : {1}x{2}", this.Type, this.Row, this.Col);
+        }
+
+        private void Notify(string field)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(field));
         }
     }
 }

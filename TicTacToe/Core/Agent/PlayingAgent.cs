@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TicTacToe.Core.Agent
@@ -10,6 +7,7 @@ namespace TicTacToe.Core.Agent
     {
         public readonly int row, col;
         public readonly Player player;
+
         public TTTMoveEventArgs(int row, int col, Player player)
         {
             this.row = row;
@@ -27,7 +25,7 @@ namespace TicTacToe.Core.Agent
 
     public abstract class PlayingAgent
     {
-        NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public string AgentName { get; protected set; }
 
@@ -35,16 +33,20 @@ namespace TicTacToe.Core.Agent
         protected readonly Board board;
 
         public abstract Task InformStart(bool firstMove);
+
         public abstract Task InformMove(int row, int col, CellType move);
+
         public abstract Task InformCancel();
 
         public event TTTMoveEventHandler OnMove;
+
         public event EventHandler OnCancelGame;
-        
+
         public Player ThisPlayer
         {
             get { return player; }
         }
+
         public Player OtherPlayer
         {
             get { return player == Player.Player1 ? Player.Player2 : Player.Player1; }
@@ -52,19 +54,20 @@ namespace TicTacToe.Core.Agent
 
         public PlayingAgent(Player thisPlayer)
         {
-            player = thisPlayer; 
+            player = thisPlayer;
             board = new Board();
         }
 
         protected void DeclareMove(TTTMoveEventArgs move)
         {
-            board[move.row,move.col] = move.player == Player.Player1 ? CellType.Player1 : CellType.Player2;
+            board[move.row, move.col] = move.player == Player.Player1 ? CellType.Player1 : CellType.Player2;
             OnMove(this, move);
         }
+
         protected void CancelGame()
         {
             logger.Info("{0} Cancelling game.", ThisPlayer);
-            if(OnCancelGame != null)
+            if (OnCancelGame != null)
                 OnCancelGame(this, new EventArgs());
         }
 
