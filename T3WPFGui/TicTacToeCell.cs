@@ -39,7 +39,9 @@
         private void Notify(string field)
         {
             if (this.PropertyChanged != null)
+            {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(field));
+            }
         }
     }
 }
