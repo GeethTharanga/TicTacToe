@@ -1,4 +1,7 @@
-﻿namespace T3WPFGui
+﻿// Copyright (c) 2015 Geeth Tharanga 
+// Under the MIT licence - See licence.txt
+
+namespace T3WPFGui
 {
     using System.ComponentModel;
 

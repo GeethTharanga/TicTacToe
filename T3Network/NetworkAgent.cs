@@ -1,5 +1,7 @@
-﻿using NLog;
-using System;
+﻿// Copyright (c) 2015 Geeth Tharanga
+// Under the MIT licence - See licence.txt
+
+using NLog;
 using System.IO;
 using System.Threading.Tasks;
 using T3Network.Util;
@@ -14,9 +16,10 @@ namespace T3Network
         private Logger logger = LogManager.GetCurrentClassLogger();
         private Stream input, output;
 
-        StreamClient cl;
+        private StreamClient cl;
 
-        public NetworkAgent(Player player, Stream input, Stream output) :base(player)
+        public NetworkAgent(Player player, Stream input, Stream output)
+            : base(player)
         {
             this.input = input;
             this.output = output;
@@ -25,7 +28,7 @@ namespace T3Network
             cl.StartListening();
         }
 
-        void cl_MessageReceived(object sender, Util.NetMessage msg)
+        private void cl_MessageReceived(object sender, Util.NetMessage msg)
         {
             var move = new TTTMoveEventArgs(msg.MoveData.Row, msg.MoveData.Col, ThisPlayer);
             DeclareMove(move);

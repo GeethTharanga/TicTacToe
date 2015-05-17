@@ -1,7 +1,10 @@
-﻿using System.Windows.Input;
+﻿// Copyright (c) 2015 Geeth Tharanga 
+// Under the MIT licence - See licence.txt
 
 namespace T3WPFGui
 {
+    using System.Windows.Input;
+
     public static class Commands
     {
         public static readonly RoutedUICommand MarkCell = new RoutedUICommand("Mark Cell", "MarkCell", typeof(MainWindow));

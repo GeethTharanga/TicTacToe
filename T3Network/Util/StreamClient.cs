@@ -1,4 +1,7 @@
-﻿using NLog;
+﻿// Copyright (c) 2015 Geeth Tharanga
+// Under the MIT licence - See licence.txt
+
+using NLog;
 using System;
 using System.IO;
 using System.Net.Sockets;
@@ -8,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using T3Network.Util;
 
-namespace T3Test.Network 
+namespace T3Test.Network
 {
     public delegate void NetMessageHandler(object sender, NetMessage msg);
 

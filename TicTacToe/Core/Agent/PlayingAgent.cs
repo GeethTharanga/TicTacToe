@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2015 Geeth Tharanga 
+// Under the MIT licence - See licence.txt
+
+using System;
 using System.Threading.Tasks;
 
 namespace TicTacToe.Core.Agent

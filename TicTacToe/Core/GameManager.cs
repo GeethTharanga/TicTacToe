@@ -1,9 +1,13 @@
-﻿using System;
+﻿// Copyright (c) 2015 Geeth Tharanga 
+// Under the MIT licence - See licence.txt
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Core.Agent;
+using TicTacToe.Util;
 
 namespace TicTacToe.Core
 {
@@ -24,7 +28,7 @@ namespace TicTacToe.Core
 
         public void StartGame()
         {
-            int delayPeriod = Properties.Settings.Default.GameStartDelay;
+            int delayPeriod = Config.GameStartDelay;
             Player startPlayer = (new Random().NextDouble()< 0.5) ? Player.Player1: Player.Player2;
 
             var task = Task.Delay(delayPeriod).ContinueWith((e) =>
