@@ -126,6 +126,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T3Network\T3Network.csproj">
+      <Project>{8a7fb64e-34d3-4fd9-820c-f0a382f755bd}</Project>
+      <Name>T3Network</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicTacToe\TicTacToeBase.csproj">
       <Project>{ced99f76-79e8-4968-83bb-45024f3ba64d}</Project>
       <Name>TicTacToeBase</Name>
