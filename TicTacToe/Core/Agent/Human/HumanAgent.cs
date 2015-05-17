@@ -28,10 +28,7 @@ namespace TicTacToe.Core.Agent.Human
         public override Task InformStart(bool firstMove)
         {
             board.StartGame(firstMove ? ThisPlayer : OtherPlayer);
-            if (firstMove)
-            {
-                ui.Refresh();
-            }
+            ui.Refresh();
 
             return Task.FromResult(true);
         }

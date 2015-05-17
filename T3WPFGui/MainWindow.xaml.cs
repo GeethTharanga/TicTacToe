@@ -59,7 +59,7 @@ namespace T3WPFGui
 
             InitControls();
             InitializeComponent();
-            SimulateStart();
+           // SimulateStart();
         }
 
         private void SimulateStart()
@@ -113,7 +113,6 @@ namespace T3WPFGui
 
         private void UpdateCells(Board board, Player thisPlayer)
         {
-            IsUserTurn = board.CurrentStatus == Status.TurnP2;
 
             for (int row = 0; row < 3; row++)
             {
