@@ -60,21 +60,11 @@
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\GameManager.cs" />
     <Compile Include="Core\WinningCombinations.cs" />
-    <Compile Include="SimpleGUIForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SimpleGUIForm.Designer.cs">
-      <DependentUpon>SimpleGUIForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ConsoleUI.cs" />
     <Compile Include="UI\IBasicGUI.cs" />
     <Compile Include="UI\UIBase.cs" />
     <Compile Include="Util\Config.cs" />
-    <EmbeddedResource Include="SimpleGUIForm.resx">
-      <DependentUpon>SimpleGUIForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
