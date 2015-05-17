@@ -57,7 +57,7 @@
     <Compile Include="Core\Agent\AI\AIAgentTests.cs" />
     <Compile Include="Core\Agent\Human\HumanTest.cs" />
     <Compile Include="Core\BoardTests.cs" />
-    <Compile Include="Network\StreamClient.cs" />
+    <Compile Include="Network\StreamClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

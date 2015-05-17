@@ -8,7 +8,8 @@
         Connect,
         Start,
         Move,
-        Cancel
+        Cancel,
+        Disconnect
     }
 
     [Serializable()]
