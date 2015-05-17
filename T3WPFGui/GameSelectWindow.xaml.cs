@@ -24,6 +24,7 @@ namespace T3WPFGui
     public partial class GameSelectWindow : Window
     {
 
+        #region UI Dependency Properties
 
         public bool NotSelectedOption
         {
@@ -33,10 +34,11 @@ namespace T3WPFGui
 
         // Using a DependencyProperty as the backing store for NotSelectedOption.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NotSelectedOptionProperty =
-            DependencyProperty.Register("NotSelectedOption", typeof(bool), typeof(GameSelectWindow), new PropertyMetadata(0));
+            DependencyProperty.Register("NotSelectedOption", typeof(bool), typeof(GameSelectWindow), new PropertyMetadata(true));
+
+        #endregion
 
 
-        
         public GameSelectWindow()
         {
             InitializeComponent();

@@ -23,12 +23,27 @@ namespace TicTacToe.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int AIThinkDuration {
             get {
                 return ((int)(this["AIThinkDuration"]));
+            }
+            set {
+                this["AIThinkDuration"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public int GameStartDelay {
+            get {
+                return ((int)(this["GameStartDelay"]));
+            }
+            set {
+                this["GameStartDelay"] = value;
             }
         }
     }
