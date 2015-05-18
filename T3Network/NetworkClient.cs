@@ -5,7 +5,7 @@ using TicTacToe.Core.Agent;
 
 namespace T3Network
 {
-    public class NetworkClient
+    public class NetworkClient : IDisposable 
     {
         private string ip;
         private TcpClient cl;
@@ -29,6 +29,14 @@ namespace T3Network
         private void Connected(IAsyncResult result)
         {
             Console.WriteLine("connected to server");
+        }
+
+        public void Dispose()
+        {
+            if(cl != null)
+            {
+                cl.Close();
+            }
         }
     }
 }
