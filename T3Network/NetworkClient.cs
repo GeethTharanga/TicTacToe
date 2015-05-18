@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using T3Network.Util;
+using TicTacToe.Core;
 using TicTacToe.Core.Agent;
 
 namespace T3Network
@@ -9,14 +10,19 @@ namespace T3Network
     {
         private string ip;
         private TcpClient cl;
+        private Player player;
 
         public bool IsConnected { get; private set; }
 
         public PlayingAgent Agent { get; private set; }
 
-        public NetworkClient(string ip)
+        public event EventHandler OnConnect;
+        public event EventHandler<string> OnError;
+
+        public NetworkClient(string ip,Player player)
         {
             this.ip = ip;
+            this.player = player;
         }
 
         public void Connect()
@@ -28,7 +34,26 @@ namespace T3Network
 
         private void Connected(IAsyncResult result)
         {
-            Console.WriteLine("connected to server");
+            try
+            {
+                cl.EndConnect(result);
+                var stream = cl.GetStream();
+
+                Agent = new NetworkAgent(player, stream, stream);
+                IsConnected = true;
+
+                if (OnConnect != null)
+                {
+                    OnConnect(this, new EventArgs());
+                }
+            }
+            catch(SocketException  ex)
+            {
+                if(OnError != null)
+                {
+                    OnError(this, ex.Message);
+                }
+            }
         }
 
         public void Dispose()
