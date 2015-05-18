@@ -5,6 +5,12 @@ namespace T3WPFGui
 {
     using System.Windows.Input;
 
+    public enum AIMode
+    {
+        Easy,
+        Hard
+    }
+
     public static class Commands
     {
         public static readonly RoutedUICommand MarkCell = new RoutedUICommand("Mark Cell", "MarkCell", typeof(MainWindow));

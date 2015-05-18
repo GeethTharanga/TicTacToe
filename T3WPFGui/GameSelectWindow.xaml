@@ -3,16 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:self="clr-namespace:T3WPFGui"
         x:Class="T3WPFGui.GameSelectWindow" 
-        Title="GameSelectWindow" Height="300" Width="300">
+        Title="GameSelectWindow" Height="250" Width="400" WindowStartupLocation="CenterScreen" >
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame"/>
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame"/>
         <CommandBinding Command="self:Commands.JoinGame" Executed="NewJoinGame"/>
     </Window.CommandBindings>
     <StackPanel>
-        <Button Content="AI Game"  Command="self:Commands.AIGame" />
-        <Button Content="Host Game" Command="self:Commands.HostGame" />
-        <Button Content="Join Game" Command="self:Commands.JoinGame" />
+        <TextBlock HorizontalAlignment="Center" FontSize="25">
+            Select Game Mode
+        </TextBlock>
+        <GroupBox Header="Single Player" >
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            <Button Content="Easy"  Command="self:Commands.AIGame" Grid.Column="0" CommandParameter="local:AIMode.Easy"/>
+            <Button Content="Hard"  Command="self:Commands.AIGame" Grid.Column="1" CommandParameter="local:AIMode.Hard" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Host Game">
+            <Grid>
+                <Button Content="Host Game" Command="self:Commands.HostGame"/>
+                <StackPanel  Visibility="Collapsed"  >
+                    <TextBlock DockPanel.Dock="Left" >Waiting for someone to connect</TextBlock>
+                    <Button Content="Cancel" Command="self:Commands.HostGame"  />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Join Game">
+            <Grid>
+                <Grid DockPanel.Dock="Right"  >
+                    <Button Content="Join" Command="self:Commands.JoinGame" />
+                </Grid>
+                <StackPanel  Visibility="Collapsed" >
+                    <TextBlock DockPanel.Dock="Left" TextAlignment="Center" >Connecting to 127.0.0.1</TextBlock>
+                    <Button Content="Cancel" Command="self:Commands.HostGame"  />
+                </StackPanel>
 
+            </Grid>
+        </GroupBox>
     </StackPanel>
 </Window>

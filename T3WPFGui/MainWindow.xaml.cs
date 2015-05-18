@@ -62,23 +62,23 @@ namespace T3WPFGui
            // SimulateStart();
         }
 
-        private void SimulateStart()
-        {
-            PlayingAgent p1 = new AIRandomAgent(Player.Player1), p2;
+        //private void SimulateStart()
+        //{
+        //    PlayingAgent p1 = new AIRandomAgent(Player.Player1), p2;
 
-            var uiHandler = new UIBase(this);
-            var agent = new HumanAgent(Player.Player2, uiHandler);
-            p2 = agent;
+        //    var uiHandler = new UIBase(this);
+        //    var agent = new HumanAgent(Player.Player2, uiHandler);
+        //    p2 = agent;
 
-            p1.OnMove += (s, e) => { p2.InformMove(e.row, e.col, TicTacToe.Core.CellType.Player1); };
-            p2.OnMove += (s, e) => { p1.InformMove(e.row, e.col, TicTacToe.Core.CellType.Player2); };
+        //    p1.OnMove += (s, e) => { p2.InformMove(e.row, e.col, TicTacToe.Core.CellType.Player1); };
+        //    p2.OnMove += (s, e) => { p1.InformMove(e.row, e.col, TicTacToe.Core.CellType.Player2); };
 
-            //   p1.OnCancelGame += (s, e) => { MessageBox.Show("cancelled"); };
-            //    p2.OnCancelGame += (s, e) => { MessageBox.Show("cancelled"); };
+        //    //   p1.OnCancelGame += (s, e) => { MessageBox.Show("cancelled"); };
+        //    //    p2.OnCancelGame += (s, e) => { MessageBox.Show("cancelled"); };
 
-            agent.InformStart(false);
-            p1.InformStart(true);
-        }
+        //    agent.InformStart(false);
+        //    p1.InformStart(true);
+        //}
 
         private void InitControls()
         {
