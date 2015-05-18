@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,13 +21,17 @@ namespace T3Network
 
         public event EventHandler OnConnect;
 
+        private Logger logger = LogManager.GetCurrentClassLogger();
+
         public NetworkListener(Player player)
         {
+            logger.Info("Creating Network Listener");
             this.player = player;
         }
 
         public void StartListening()
         {
+            logger.Info("Starting to listen");
             listener = new TcpListener(IPAddress.Any, Config.ServerPort);
             listener.Start();
             listener.BeginAcceptTcpClient(this.Connected, null);
@@ -35,10 +40,13 @@ namespace T3Network
 
         private void Connected(IAsyncResult result)
         {
+            logger.Info("Connected");
+
             var client = listener.EndAcceptTcpClient(result);
             IsConnected = true;
             var stream=client.GetStream();
             Agent = new NetworkAgent(player, stream, stream);
+            listener.Server.Dispose();
 
             if (OnConnect != null)
             {
@@ -48,6 +56,7 @@ namespace T3Network
 
         public void Dispose()
         {
+            logger.Info("Disposing");
             if(listener != null)
             {
                 listener.Server.Dispose();

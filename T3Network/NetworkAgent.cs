@@ -21,6 +21,7 @@ namespace T3Network
         public NetworkAgent(Player player, Stream input, Stream output)
             : base(player)
         {
+            logger.Info("Creating network agent, {0}, in: {1}, out {2}", player, input, output);
             this.input = input;
             this.output = output;
             cl = new StreamClient(input, output);
@@ -30,6 +31,7 @@ namespace T3Network
 
         private void cl_MessageReceived(object sender, Util.NetMessage msg)
         {
+            logger.Info("Received message : {0}", msg);
             var move = new TTTMoveEventArgs(msg.MoveData.Row, msg.MoveData.Col, ThisPlayer);
             DeclareMove(move);
         }

@@ -43,7 +43,7 @@ namespace T3Test.Network
         {
             try
             {
-                logger.Info("Typing to send message - {0}", msg.MessageType);
+                logger.Info("Trying to send message - {0}", msg.MessageType);
                 output.WriteByte(0xff);
                 formatter.Serialize(output, msg);
                 output.Flush();
