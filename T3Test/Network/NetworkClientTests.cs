@@ -31,6 +31,8 @@ namespace T3Test.Network
 
             Thread.Sleep(200);
 
+            listener.Dispose();
+
             Assert.IsTrue(cl.IsConnected);
             Assert.IsTrue(listener.IsConnected);
             Assert.IsNotNull(cl.Agent);
@@ -52,6 +54,14 @@ namespace T3Test.Network
             Assert.IsFalse(flag1);
             Assert.IsNull(listener.Agent);
             Assert.IsFalse(listener.IsConnected);
+
+            NetworkClient cl = new NetworkClient("127.0.0.1", TicTacToe.Core.Player.Player2);
+            cl.OnConnect += (s, e) => { flag2 = true; };
+            cl.Connect();
+            Thread.Sleep(100);
+            Assert.IsFalse(flag2);
+            Assert.IsNull(cl.Agent);
+            Assert.IsFalse(cl.IsConnected);
         }
 
         [TestMethod]
@@ -67,6 +77,25 @@ namespace T3Test.Network
             Assert.IsFalse(flag1);
             Assert.IsNull(cl.Agent);
             Assert.IsFalse(cl.IsConnected);
+        }
+
+        [TestMethod]
+        public void TestClientError()
+        {
+            flag1 = flag2 = false;
+            NetworkClient cl = new NetworkClient("999.222.333.111", TicTacToe.Core.Player.Player1);
+            cl.OnConnect += (s, e) => { flag1 = true; };
+            cl.OnError += (s, e) => { flag2 = true; };
+            cl.Connect();
+            Thread.Sleep(200);
+
+
+            Assert.IsFalse(flag1);
+            Assert.IsTrue(flag2);
+            Assert.IsNull(cl.Agent);
+            Assert.IsFalse(cl.IsConnected);
+
+            cl.Dispose();
         }
     }
 }
