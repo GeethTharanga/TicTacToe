@@ -57,6 +57,7 @@
     <Compile Include="Core\Agent\AI\AIRandomAgent.cs" />
     <Compile Include="Core\Agent\Human\HumanAgent.cs" />
     <Compile Include="Core\Agent\PlayingAgent.cs" />
+    <Compile Include="Core\Agent\RemoteStartingAgent.cs" />
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\GameManager.cs" />
     <Compile Include="Core\WinningCombinations.cs" />
