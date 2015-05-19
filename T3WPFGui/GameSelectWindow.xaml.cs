@@ -76,7 +76,7 @@ namespace T3WPFGui
                 p2 = human;
             }
 
-            GameManager manager = new GameManager(p1, p2, thisPlayer == Player.Player1);
+            GameManager manager = new GameManager(p1, p2);
             manager.StartGame();
             wndMain.ShowDialog();
         }

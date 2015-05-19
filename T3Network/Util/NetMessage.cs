@@ -41,10 +41,10 @@ namespace T3Network.Util
         [Serializable]
         public class StartMessageData
         {
-            public bool IsStarter { get; set; }
+            public Player Starter { get; set; }
             public override string ToString()
             {
-                return IsStarter.ToString();
+                return Starter.ToString();
             }
         }
         

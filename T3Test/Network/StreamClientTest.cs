@@ -27,7 +27,7 @@ namespace T3Test.Network
             fmt.Serialize(mem, msg);
 
             msg = new NetMessage { MessageType = NetMessageType.Start };
-            msg.StartData = new NetMessage.StartMessageData { IsStarter = false };
+            msg.StartData = new NetMessage.StartMessageData {  Starter= Player.Player1 };
             mem.WriteByte(0xff);
             fmt.Serialize(mem, msg);
 
@@ -73,7 +73,7 @@ namespace T3Test.Network
             cl.SendMessage(msg);
 
             msg = new NetMessage { MessageType = NetMessageType.Start };
-            msg.StartData = new NetMessage.StartMessageData { IsStarter = false };
+            msg.StartData = new NetMessage.StartMessageData { Starter = Player.Player1 };
             cl.SendMessage(msg);
 
             msg = new NetMessage { MessageType = NetMessageType.Move };

@@ -14,7 +14,7 @@ namespace T3Test.Core
         {
             AIAgent p1 = new AIRandomAgent(Player.Player1), p2 = new AIRandomAgent(Player.Player2);
             p1.ThinkDuration = p2.ThinkDuration = 10;
-            GameManager manager = new GameManager(p1, p2, true);
+            GameManager manager = new GameManager(p1, p2);
             manager.GameStartDelay = 5;
 
             AutoResetEvent ev = new AutoResetEvent(false);

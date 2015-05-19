@@ -11,11 +11,11 @@ namespace TicTacToe.Core.Agent
 {
     public class RemoteStartArgs  
     {
-        public RemoteStartArgs(bool isStarter)
+        public RemoteStartArgs(Player starter)
         {
-            StartingMove = isStarter;
+            Starter = starter;
         }
-        public bool StartingMove { get; private set; }
+        public Player Starter { get; private set; }
     }
     public abstract class RemoteStartingAgent : PlayingAgent 
     {
@@ -26,11 +26,11 @@ namespace TicTacToe.Core.Agent
 
         public event EventHandler<RemoteStartArgs> OnRemoteStart;
 
-        protected void DeclareRemoteStart(bool isStarter)
+        protected void DeclareRemoteStart(Player starter)
         {
             if(OnRemoteStart != null )
             {
-                var arg = new RemoteStartArgs(isStarter);
+                var arg = new RemoteStartArgs(starter);
                 OnRemoteStart(this, arg);
             }
         }

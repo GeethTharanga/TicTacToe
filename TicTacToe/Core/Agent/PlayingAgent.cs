@@ -35,7 +35,7 @@ namespace TicTacToe.Core.Agent
         protected readonly Player player;
         protected readonly Board board;
 
-        public abstract Task InformStart(bool firstMove);
+        public abstract Task InformStart(Player starter);
 
         public abstract Task InformMove(int row, int col, CellType move);
 

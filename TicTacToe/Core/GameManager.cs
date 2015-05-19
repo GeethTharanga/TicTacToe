@@ -27,32 +27,47 @@ namespace TicTacToe.Core
 
         public event EventHandler OnGameEnd;
 
-        public GameManager(PlayingAgent p1, PlayingAgent p2, bool isHost)
+        /// <summary>
+        /// Create new game manager as host
+        /// </summary>
+        /// <param name="p1">Player 1</param>
+        /// <param name="p2">Player 2</param>
+        public GameManager(PlayingAgent p1, PlayingAgent p2)
         {
-            logger.Info("Creating game manager {0}, {1},host: {2}", p1, p2, isHost);
+            logger.Info("Creating game manager  {0}, {1}", p1, p2);
             this.p1 = p1;
             this.p2 = p2;
-            this.host = isHost;
+            this.host = true;
 
             InitBindings();
             GameStartDelay = Config.GameStartDelay;
             board = new Board();
         }
 
+        public GameManager(RemoteStartingAgent p1, PlayingAgent p2) : this((PlayingAgent)p1,p2)
+        {
+            this.host = false;
+            p1.OnRemoteStart += RemoteStarted;
+        }
+
+
         public void StartGame()
         {
-            if (host)
+            if (!host)
             {
-                int delayPeriod = GameStartDelay;
-                Player startPlayer = (new Random().NextDouble() < 0.5) ? Player.Player1 : Player.Player2;
-
-                var task = Task.Delay(delayPeriod).ContinueWith((e) =>
-                {
-                    p1.InformStart(startPlayer == Player.Player1);
-                    p2.InformStart(startPlayer == Player.Player2);
-                });
-                board.StartGame(startPlayer);
+                logger.Error("Tried to start a guest game");
+                throw new InvalidOperationException("Tried to start a guest game");
             }
+            int delayPeriod = GameStartDelay;
+            Player startPlayer = (new Random().NextDouble() < 0.5) ? Player.Player1 : Player.Player2;
+            logger.Info("Starting player : {0}", startPlayer);
+            var task = Task.Delay(delayPeriod).ContinueWith((e) =>
+            {
+                p1.InformStart(startPlayer);
+                p2.InformStart(startPlayer);
+            });
+            board.StartGame(startPlayer);
+
         }
 
         private void InitBindings()
@@ -96,6 +111,13 @@ namespace TicTacToe.Core
             {
                 DeclareGameEnded();
             }
+        }
+
+        void RemoteStarted(object sender, RemoteStartArgs e)
+        {
+            p2.InformStart(e.Starter);
+            board.StartGame(e.Starter);
+
         }
 
         private CellType PlayerToCellType(Player p)

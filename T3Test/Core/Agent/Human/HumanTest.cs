@@ -56,8 +56,8 @@ namespace T3Test.Core.Agent.Human
 
             //start
 
-            p1.InformStart(starter == Player.Player1);
-            p2.InformStart(starter == Player.Player2);
+            p1.InformStart(starter);
+            p2.InformStart(starter);
             while (board.IsGameInProgress)
             {
                 eventOccured.WaitOne();

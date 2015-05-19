@@ -11,7 +11,7 @@ using TicTacToe.Core.Agent;
 
 namespace T3Network
 {
-    public class NetworkAgent : RemoteStartingAgent 
+    public class NetworkAgent : RemoteStartingAgent
     {
         private Logger logger = LogManager.GetCurrentClassLogger();
         private Stream input, output;
@@ -36,33 +36,42 @@ namespace T3Network
             {
                 case NetMessageType.Connect:
                     break;
+
                 case NetMessageType.Start:
-                    DeclareRemoteStart(msg.StartData.IsStarter);
+                    {
+                        var starter = msg.StartData.Starter;
+                        DeclareRemoteStart(starter);
+                        board.StartGame(starter);
+                    }
                     break;
+
                 case NetMessageType.Move:
                     {
                         var move = new TTTMoveEventArgs(msg.MoveData.Row, msg.MoveData.Col, ThisPlayer);
                         DeclareMove(move);
                     }
                     break;
+
                 case NetMessageType.Cancel:
                     CancelGame();
                     break;
+
                 case NetMessageType.Disconnect:
                     cl.CancelListening();
                     CancelGame();
                     break;
+
                 default:
                     break;
             }
-            
         }
 
-        public override Task InformStart(bool firstMove)
+        public override Task InformStart(Player starter)
         {
             NetMessage msg = new NetMessage { MessageType = NetMessageType.Start };
-            msg.StartData = new NetMessage.StartMessageData { IsStarter = firstMove };
+            msg.StartData = new NetMessage.StartMessageData { Starter = starter };
             cl.SendMessage(msg);
+            board.StartGame(starter);
             return Task.FromResult(new object());
         }
 

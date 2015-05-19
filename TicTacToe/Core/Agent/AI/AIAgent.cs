@@ -24,11 +24,10 @@ namespace TicTacToe.Core.Agent.AI
         }
 
 
-
-        public override Task InformStart(bool firstMove)
+        public override Task InformStart(Player starter)
         {
-            board.StartGame(firstMove ? ThisPlayer : OtherPlayer);
-            if (firstMove)
+            board.StartGame(starter);
+            if (ThisPlayer == starter)
             {
                 StartMakingMove();
             }
