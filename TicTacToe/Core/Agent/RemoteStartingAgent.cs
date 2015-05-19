@@ -12,6 +12,11 @@ namespace TicTacToe.Core.Agent
     }
     public abstract class RemoteStartingAgent : PlayingAgent 
     {
+        public RemoteStartingAgent(Player player):base(player)
+        {
+
+        }
+
         public event EventHandler<RemoteStartArgs> OnRemoteStart;
 
         protected void DeclareRemoteStart(RemoteStartArgs arg)

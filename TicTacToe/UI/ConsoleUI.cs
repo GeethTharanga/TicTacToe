@@ -12,8 +12,7 @@ namespace TicTacToe.UI
 {
     public class ConsoleUI : IBasicUI 
     {
-        public event EventHandler UIOnClose;
-
+        public event EventHandler UIOnClose { add { } remove { } }
 
 
         public void UIRefresh(Core.Board board, Core.Player thisPlayer)
