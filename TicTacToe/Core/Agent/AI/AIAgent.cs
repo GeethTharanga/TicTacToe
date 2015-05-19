@@ -14,12 +14,16 @@ namespace TicTacToe.Core.Agent.AI
     public abstract class AIAgent : PlayingAgent
     {
         NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        public int ThinkDuration { get; set; }
 
         public AIAgent(Player thisPlayer):base(thisPlayer)
         {
             AgentName = "AI";
             logger.Info("Creating random AI agent for : {0}", thisPlayer);
+            ThinkDuration = Config.AIThinkDuration;
         }
+
+
 
         public override Task InformStart(bool firstMove)
         {
@@ -55,7 +59,7 @@ namespace TicTacToe.Core.Agent.AI
                     try
                     {
                         var move = FindMove();
-                        Thread.Sleep(Config.AIThinkDuration);
+                        Thread.Sleep(this.ThinkDuration);
                         logger.Info("AI Making move {0} . {1},{2}", ThisPlayer, move.row,move.col);
                         DeclareMove(move);
                     }
