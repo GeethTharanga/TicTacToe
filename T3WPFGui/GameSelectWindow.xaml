@@ -3,11 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:self="clr-namespace:T3WPFGui"
         x:Class="T3WPFGui.GameSelectWindow" 
+        DataContext = "{Binding RelativeSource={RelativeSource Self}}" 
         Title="GameSelectWindow" Height="250" Width="400" WindowStartupLocation="CenterScreen" >
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame"/>
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame"/>
         <CommandBinding Command="self:Commands.JoinGame" Executed="NewJoinGame"/>
+        <CommandBinding Command="self:Commands.CancelHost" Executed="CancelHostGame"/>
+        <CommandBinding Command="self:Commands.CancelJoin" Executed="CancelJoinGame"/>
     </Window.CommandBindings>
     <StackPanel>
         <TextBlock HorizontalAlignment="Center" FontSize="25">
@@ -19,27 +22,89 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-            <Button Content="Easy"  Command="self:Commands.AIGame" Grid.Column="0" CommandParameter="local:AIMode.Easy"/>
-            <Button Content="Hard"  Command="self:Commands.AIGame" Grid.Column="1" CommandParameter="local:AIMode.Hard" />
+            <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Easy"  Command="self:Commands.AIGame" Grid.Column="0" CommandParameter="local:AIMode.Easy"/>
+            <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Hard"  Command="self:Commands.AIGame" Grid.Column="1" CommandParameter="local:AIMode.Hard" />
             </Grid>
         </GroupBox>
         <GroupBox Header="Host Game">
             <Grid>
-                <Button Content="Host Game" Command="self:Commands.HostGame"/>
-                <StackPanel  Visibility="Collapsed"  >
+                <Grid.Style>
+                    <Style TargetType="Grid"  >
+                        <Setter Property="IsEnabled" Value="True"  />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsJoiningGame}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"  />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Button  Command="self:Commands.HostGame">
+                    <Button.Style>
+                        <Style TargetType="Button"  >
+                            <Setter Property="Visibility"  Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsHostingGame}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"  />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    Host Game
+                </Button>
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel"  >
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsHostingGame}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
                     <TextBlock DockPanel.Dock="Left" >Waiting for someone to connect</TextBlock>
-                    <Button Content="Cancel" Command="self:Commands.HostGame"  />
+                    <Button Content="Cancel" Command="self:Commands.CancelHost"  />
                 </StackPanel>
             </Grid>
         </GroupBox>
         <GroupBox Header="Join Game">
             <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid"  >
+                        <Setter Property="IsEnabled"   Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsHostingGame}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"   />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
                 <Grid DockPanel.Dock="Right"  >
                     <Button Content="Join" Command="self:Commands.JoinGame" />
+                    <Grid.Style>
+                        <Style TargetType="Grid"  >
+                            <Setter Property="Visibility"  Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsJoiningGame}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"  />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
                 </Grid>
-                <StackPanel  Visibility="Collapsed" >
+                <StackPanel  >
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel"  >
+                            <Setter Property="Visibility"  Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsJoiningGame}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"  />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
                     <TextBlock DockPanel.Dock="Left" TextAlignment="Center" >Connecting to 127.0.0.1</TextBlock>
-                    <Button Content="Cancel" Command="self:Commands.HostGame"  />
+                    <Button Content="Cancel" Command="self:Commands.CancelJoin"  />
                 </StackPanel>
 
             </Grid>

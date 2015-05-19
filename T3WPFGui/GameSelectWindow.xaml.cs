@@ -25,6 +25,32 @@ namespace T3WPFGui
         public static readonly DependencyProperty NotSelectedOptionProperty =
             DependencyProperty.Register("NotSelectedOption", typeof(bool), typeof(GameSelectWindow), new PropertyMetadata(true));
 
+
+
+        public bool IsHostingGame
+        {
+            get { return (bool)GetValue(IsHostingGameProperty); }
+            set { SetValue(IsHostingGameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsHostingGame.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsHostingGameProperty =
+            DependencyProperty.Register("IsHostingGame", typeof(bool), typeof(GameSelectWindow), new PropertyMetadata(false));
+
+
+
+        public bool IsJoiningGame
+        {
+            get { return (bool)GetValue(IsJoiningGameProperty); }
+            set { SetValue(IsJoiningGameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsJoiningGame.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsJoiningGameProperty =
+            DependencyProperty.Register("IsJoiningGame", typeof(bool), typeof(GameSelectWindow), new PropertyMetadata(false));
+
+
+
         #endregion UI Dependency Properties
 
         public GameSelectWindow()
@@ -57,6 +83,8 @@ namespace T3WPFGui
 
         private void NewHostGame(object sender, ExecutedRoutedEventArgs e)
         {
+            NotSelectedOption = false;
+            IsHostingGame = true;
             MessageBox.Show("Not implemented");
         }
 
@@ -68,6 +96,22 @@ namespace T3WPFGui
 
         private void NewJoinGame(object sender, ExecutedRoutedEventArgs e)
         {
+            NotSelectedOption = false;
+            IsJoiningGame = true;
+            MessageBox.Show("Not implemented");
+        }
+
+        private void CancelJoinGame(object sender, ExecutedRoutedEventArgs e)
+        {
+            NotSelectedOption = true;
+            IsJoiningGame = false ;
+            MessageBox.Show("Not implemented");
+        }
+
+        private void CancelHostGame(object sender, ExecutedRoutedEventArgs e)
+        {
+            NotSelectedOption = true ;
+            IsHostingGame = false;
             MessageBox.Show("Not implemented");
         }
     }

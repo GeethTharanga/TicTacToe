@@ -18,5 +18,9 @@ namespace T3WPFGui
         public static readonly RoutedUICommand AIGame = new RoutedUICommand("New AI Game", "AIGame", typeof(GameSelectWindow));
         public static readonly RoutedUICommand HostGame = new RoutedUICommand("Host Game", "HostGame", typeof(GameSelectWindow));
         public static readonly RoutedUICommand JoinGame = new RoutedUICommand("Join Game", "JoinGame", typeof(GameSelectWindow));
+
+        public static readonly RoutedUICommand CancelHost = new RoutedUICommand("Cancel Host Game", "CancelHost", typeof(GameSelectWindow));
+        public static readonly RoutedUICommand CancelJoin = new RoutedUICommand("Cancel Join Game", "CancelJoin", typeof(GameSelectWindow));
+    
     }
 }
