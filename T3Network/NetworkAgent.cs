@@ -80,6 +80,7 @@ namespace T3Network
             NetMessage msg = new NetMessage { MessageType = NetMessageType.Move };
             msg.MoveData = new NetMessage.MoveMessageData { Col = col, Row = row };
             cl.SendMessage(msg);
+            board[row, col] = move;
             return Task.FromResult(new object());
         }
 
