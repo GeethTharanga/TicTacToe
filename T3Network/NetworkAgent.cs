@@ -32,8 +32,30 @@ namespace T3Network
         private void cl_MessageReceived(object sender, Util.NetMessage msg)
         {
             logger.Info("Received message : {0}", msg);
-            var move = new TTTMoveEventArgs(msg.MoveData.Row, msg.MoveData.Col, ThisPlayer);
-            DeclareMove(move);
+            switch (msg.MessageType)
+            {
+                case NetMessageType.Connect:
+                    break;
+                case NetMessageType.Start:
+                    //InformStart(msg.StartData.IsStarter);
+                    break;
+                case NetMessageType.Move:
+                    {
+                        var move = new TTTMoveEventArgs(msg.MoveData.Row, msg.MoveData.Col, ThisPlayer);
+                        DeclareMove(move);
+                    }
+                    break;
+                case NetMessageType.Cancel:
+                    CancelGame();
+                    break;
+                case NetMessageType.Disconnect:
+                    cl.CancelListening();
+                    CancelGame();
+                    break;
+                default:
+                    break;
+            }
+            
         }
 
         public override Task InformStart(bool firstMove)

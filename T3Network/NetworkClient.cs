@@ -15,7 +15,7 @@ namespace T3Network
 
         public bool IsConnected { get; private set; }
 
-        public PlayingAgent Agent { get; private set; }
+        public NetworkAgent Agent { get; private set; }
 
         public event EventHandler OnConnect;
         public event EventHandler<string> OnError;
