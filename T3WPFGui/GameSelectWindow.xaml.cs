@@ -114,5 +114,11 @@ namespace T3WPFGui
             IsHostingGame = false;
             MessageBox.Show("Not implemented");
         }
+
+        private void CanStartJoining(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var address = (string)e.Parameter;
+            e.CanExecute = !string.IsNullOrWhiteSpace(address);
+        }
     }
 }

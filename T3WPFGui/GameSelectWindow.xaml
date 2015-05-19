@@ -8,9 +8,9 @@
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame"/>
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame"/>
-        <CommandBinding Command="self:Commands.JoinGame" Executed="NewJoinGame"/>
+        <CommandBinding Command="self:Commands.JoinGame" CanExecute="CanStartJoining" Executed="NewJoinGame"/>
         <CommandBinding Command="self:Commands.CancelHost" Executed="CancelHostGame"/>
-        <CommandBinding Command="self:Commands.CancelJoin" Executed="CancelJoinGame"/>
+        <CommandBinding Command="self:Commands.CancelJoin"  Executed="CancelJoinGame"/>
     </Window.CommandBindings>
     <StackPanel>
         <TextBlock HorizontalAlignment="Center" FontSize="25">
@@ -79,10 +79,16 @@
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-                <Grid DockPanel.Dock="Right"  >
-                    <Button Content="Join" Command="self:Commands.JoinGame" />
-                    <Grid.Style>
-                        <Style TargetType="Grid"  >
+                <StackPanel   >
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left">Host Address</TextBlock>
+                        <TextBox Name="TxtHostAddress" />
+                    </DockPanel>
+                    <Button Content="Join" CommandParameter="{Binding ElementName=TxtHostAddress, Path=Text}" Command="self:Commands.JoinGame" DockPanel.Dock="Right"  >
+                    </Button> 
+                    
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel"  >
                             <Setter Property="Visibility"  Value="Visible" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsJoiningGame}" Value="True">
@@ -90,9 +96,9 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Grid.Style>
-                </Grid>
-                <StackPanel  >
+                    </StackPanel.Style>
+                </StackPanel>
+                <StackPanel>
                     <StackPanel.Style>
                         <Style TargetType="StackPanel"  >
                             <Setter Property="Visibility"  Value="Collapsed" />
