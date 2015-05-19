@@ -17,11 +17,20 @@ namespace TicTacToe.Core
         private Board board;
 
         public int GameStartDelay { get; set; }
+
         public bool IsGameEnded
         {
             get
             {
                 return board.IsGameEnded;
+            }
+        }
+
+        public Status GameStatus
+        {
+            get
+            {
+                return board.CurrentStatus;
             }
         }
 
@@ -44,12 +53,17 @@ namespace TicTacToe.Core
             board = new Board();
         }
 
-        public GameManager(RemoteStartingAgent p1, PlayingAgent p2) : this((PlayingAgent)p1,p2)
+        /// <summary>
+        /// Create a game manager with remote start
+        /// </summary>
+        /// <param name="p1">Remote agent - player 1</param>
+        /// <param name="p2">Player 2</param>
+        public GameManager(RemoteStartingAgent p1, PlayingAgent p2)
+            : this((PlayingAgent)p1, p2)
         {
             this.host = false;
             p1.OnRemoteStart += RemoteStarted;
         }
-
 
         public void StartGame()
         {
@@ -67,7 +81,6 @@ namespace TicTacToe.Core
                 p2.InformStart(startPlayer);
             });
             board.StartGame(startPlayer);
-
         }
 
         private void InitBindings()
@@ -107,17 +120,16 @@ namespace TicTacToe.Core
         {
             p2.InformMove(e.row, e.col, CellType.Player1);
             board[e.row, e.col] = CellType.Player1;
-            if(this.IsGameEnded)
+            if (this.IsGameEnded)
             {
                 DeclareGameEnded();
             }
         }
 
-        void RemoteStarted(object sender, RemoteStartArgs e)
+        private void RemoteStarted(object sender, RemoteStartArgs e)
         {
             p2.InformStart(e.Starter);
             board.StartGame(e.Starter);
-
         }
 
         private CellType PlayerToCellType(Player p)
@@ -127,7 +139,7 @@ namespace TicTacToe.Core
 
         private void DeclareGameEnded()
         {
-            if(OnGameEnd != null)
+            if (OnGameEnd != null)
             {
                 OnGameEnd(this, new EventArgs());
             }

@@ -13,7 +13,7 @@ namespace T3Test.Core
         public void TestGameManager()
         {
             AIAgent p1 = new AIRandomAgent(Player.Player1), p2 = new AIRandomAgent(Player.Player2);
-            p1.ThinkDuration = p2.ThinkDuration = 10;
+            p1.ThinkDuration = p2.ThinkDuration = 60;
             GameManager manager = new GameManager(p1, p2);
             manager.GameStartDelay = 5;
 
