@@ -37,7 +37,18 @@ namespace T3Network
             logger.Info("Connecting...");
             int port = Config.ServerPort;
             cl = new TcpClient();
-            cl.BeginConnect(ip, port, this.Connected, null);
+            try
+            {
+                cl.BeginConnect(ip, port, this.Connected, null);
+            }
+            catch(SocketException ex)
+            {
+                logger.Error("Error connecting", ex);
+                if (OnError != null)
+                {
+                    OnError(this, ex.Message);
+                }
+            }
         }
 
         private void Connected(IAsyncResult result)

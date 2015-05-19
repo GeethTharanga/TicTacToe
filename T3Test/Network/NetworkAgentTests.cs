@@ -20,10 +20,17 @@ namespace T3Test.Network
             NetworkClient client = new NetworkClient("localhost", TicTacToe.Core.Player.Player1);
 
             client.OnError += (s, e) => { Console.WriteLine(e); };
+            AutoResetEvent ev1 = new AutoResetEvent(false), ev2 = new AutoResetEvent(false);
 
+            client.OnConnect += (s, e) => { ev1.Set(); };
+            listener.OnConnect += (s, w) => { ev2.Set(); };
+            
             listener.StartListening();
             client.Connect();
-            Thread.Sleep(100);
+
+            ev2.WaitOne(1000);
+            ev1.WaitOne(1000);
+
             Assert.IsTrue(client.IsConnected && listener.IsConnected);
 
             host = listener.Agent;
@@ -32,21 +39,28 @@ namespace T3Test.Network
             hostAi = new AIRandomAgent(TicTacToe.Core.Player.Player1);
             guestAi = new AIRandomAgent(TicTacToe.Core.Player.Player2);
 
-            hostAi.ThinkDuration = guestAi.ThinkDuration = 1000;
+            hostAi.ThinkDuration = guestAi.ThinkDuration = 100;
 
             GameManager hostManager, guestManager;
             hostManager = new GameManager(hostAi, host);  //host
             guestManager = new GameManager(guest, guestAi);  //guest
 
-            hostManager.StartGame();
-            //guestManager.StartGame();
-
+            hostManager.GameStartDelay = 100;
+            
             hostAi.OnMove += (s, e) => { Console.WriteLine("hostAI " + e); };
             host.OnMove += (s, e) => { Console.WriteLine("host " + e); };
             guestAi.OnMove += (s, e) => { Console.WriteLine("guestAI " + e); };
             guest.OnMove += (s, e) => { Console.WriteLine("guest " + e); };
 
-            Thread.Sleep(10000);
+            AutoResetEvent ev = new AutoResetEvent(false);
+            bool finished = false;
+            hostManager.OnGameEnd += (s, e) => { finished = true; ev.Set(); };
+
+            hostManager.StartGame();
+
+            ev.WaitOne(10000);
+            Assert.IsTrue(finished);
+            Assert.AreNotEqual(Status.Cancelled,hostManager.GameStatus);
         }
     }
 }

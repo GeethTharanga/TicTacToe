@@ -27,7 +27,8 @@ namespace T3Test.Core.Agent.AI
         [TestMethod]
         public void TestRandomAgent()
         {
-            PlayingAgent p1 = new AIRandomAgent(Player.Player1), p2 = new AIRandomAgent(Player.Player2);
+            AIAgent p1 = new AIRandomAgent(Player.Player1), p2 = new AIRandomAgent(Player.Player2);
+            p1.ThinkDuration = p2.ThinkDuration = 100;
             TestAgents(p1, p2);
         }
 
