@@ -1,4 +1,7 @@
-﻿using NLog;
+﻿// Copyright (c) 2015 Geeth Tharanga 
+// Under the MIT licence - See licence.txt
+
+using NLog;
 using System;
 using System.Net.Sockets;
 using T3Network.Util;
