@@ -24,12 +24,15 @@ namespace T3Network
 
         public event EventHandler OnConnect;
 
+        private bool isDisposed;
+
         private Logger logger = LogManager.GetCurrentClassLogger();
 
         public NetworkListener(Player player)
         {
             logger.Info("Creating Network Listener");
             this.player = player;
+            isDisposed = false;
         }
 
         public void StartListening()
@@ -43,6 +46,12 @@ namespace T3Network
 
         private void Connected(IAsyncResult result)
         {
+            //if listener is closed
+            if(isDisposed)
+            {
+                return;
+            }
+
             logger.Info("Connected");
 
             var client = listener.EndAcceptTcpClient(result);
@@ -62,7 +71,8 @@ namespace T3Network
             logger.Info("Disposing");
             if(listener != null)
             {
-                listener.Server.Dispose();
+                isDisposed = true; 
+                listener.Stop();
             }
         }
     }

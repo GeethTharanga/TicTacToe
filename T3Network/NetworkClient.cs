@@ -24,6 +24,7 @@ namespace T3Network
         public event EventHandler<string> OnError;
 
         private Logger logger = LogManager.GetCurrentClassLogger();
+        private bool isDisposed;
 
         public NetworkClient(string ip,Player player)
         {
@@ -53,6 +54,10 @@ namespace T3Network
 
         private void Connected(IAsyncResult result)
         {
+            if(isDisposed)
+            {
+                return;
+            }
             logger.Info("Connected/Error");
             try
             {
@@ -81,8 +86,9 @@ namespace T3Network
         public void Dispose()
         {
             logger.Info("Disposing client");
-            if(cl != null)
+            if (cl != null)
             {
+                isDisposed = true;
                 cl.Close();
             }
         }
