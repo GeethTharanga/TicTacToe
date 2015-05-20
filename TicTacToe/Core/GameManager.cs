@@ -94,16 +94,22 @@ namespace TicTacToe.Core
 
         private void p2_OnCancelGame(object sender, EventArgs e)
         {
-            p1.InformCancel();
-            board.CancelGame();
-            DeclareGameEnded();
+            if (!board.IsGameEnded)
+            {
+                p1.InformCancel();
+                board.CancelGame();
+                DeclareGameEnded();
+            }
         }
 
         private void p1_OnCancelGame(object sender, EventArgs e)
         {
-            p2.InformCancel();
-            board.CancelGame();
-            DeclareGameEnded();
+            if (!board.IsGameEnded)
+            {
+                p2.InformCancel();
+                board.CancelGame();
+                DeclareGameEnded();
+            }
         }
 
         private void p2_OnMove(object sender, TTTMoveEventArgs e)

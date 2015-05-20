@@ -17,6 +17,7 @@ namespace T3Network
         private Stream input, output;
 
         private StreamClient cl;
+        private bool isStreamClosed;
 
         public NetworkAgent(Player player, Stream input, Stream output)
             : base(player)
@@ -26,7 +27,18 @@ namespace T3Network
             this.output = output;
             cl = new StreamClient(input, output);
             cl.MessageReceived += cl_MessageReceived;
+            cl.StreamClosed += cl_StreamClosed;
             cl.StartListening();
+        }
+
+        void cl_StreamClosed(object sender, System.EventArgs e)
+        {
+            isStreamClosed = true;
+            if(!board.IsGameEnded)
+            {
+                board.CancelGame();
+                this.CancelGame();
+            }
         }
 
         private void cl_MessageReceived(object sender, Util.NetMessage msg)
@@ -68,26 +80,35 @@ namespace T3Network
 
         public override Task InformStart(Player starter)
         {
-            NetMessage msg = new NetMessage { MessageType = NetMessageType.Start };
-            msg.StartData = new NetMessage.StartMessageData { Starter = starter };
-            cl.SendMessage(msg);
-            board.StartGame(starter);
+            if (!isStreamClosed)
+            {
+                NetMessage msg = new NetMessage { MessageType = NetMessageType.Start };
+                msg.StartData = new NetMessage.StartMessageData { Starter = starter };
+                cl.SendMessage(msg);
+                board.StartGame(starter);
+            }
             return Task.FromResult(new object());
         }
 
         public override Task InformMove(int row, int col, TicTacToe.Core.CellType move)
         {
-            NetMessage msg = new NetMessage { MessageType = NetMessageType.Move };
-            msg.MoveData = new NetMessage.MoveMessageData { Col = col, Row = row };
-            cl.SendMessage(msg);
-            board[row, col] = move;
+            if (!isStreamClosed)
+            {
+                NetMessage msg = new NetMessage { MessageType = NetMessageType.Move };
+                msg.MoveData = new NetMessage.MoveMessageData { Col = col, Row = row };
+                cl.SendMessage(msg);
+                board[row, col] = move;
+            }
             return Task.FromResult(new object());
         }
 
         public override Task InformCancel()
         {
-            cl.SendMessage(new Util.NetMessage { MessageType = Util.NetMessageType.Cancel });
-            cl.CancelListening();
+            if (!isStreamClosed)
+            {
+                cl.SendMessage(new Util.NetMessage { MessageType = Util.NetMessageType.Cancel });
+                cl.CancelListening();
+            }
             return Task.FromResult(new object());
         }
     }

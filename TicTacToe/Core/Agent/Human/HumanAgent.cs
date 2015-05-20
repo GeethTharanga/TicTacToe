@@ -69,7 +69,10 @@ namespace TicTacToe.Core.Agent.Human
 
         void ui_OnCancel(object sender, EventArgs e)
         {
-            CancelGame();
+            if (!board.IsGameEnded)
+            {
+                CancelGame();
+            }
         }
 
 
