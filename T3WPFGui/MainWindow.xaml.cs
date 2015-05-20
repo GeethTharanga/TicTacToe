@@ -98,6 +98,7 @@ namespace T3WPFGui
         {
             Dispatcher.Invoke(() =>
             {
+                UserCellType = thisPlayer == Player.Player1 ? CellType.O : CellType.X;
                 IsGameInProgress = board.IsGameInProgress;
                 IsUserTurn = (board.CurrentStatus == Status.TurnP1 && thisPlayer == Player.Player1)
                              || (board.CurrentStatus == Status.TurnP2 && thisPlayer == Player.Player2);

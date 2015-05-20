@@ -27,9 +27,9 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate >
-                        <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn }"
-                                 Command="local:Commands.MarkCell" CommandParameter="{Binding}" Tag="{Binding}" >
+                    <DataTemplate>
+                        <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn}"
+                                 Command="local:Commands.MarkCell" CommandParameter="{Binding}" Tag="{Binding}" Name="btn" >
                             <Viewbox Stretch="Uniform" >
                                 <Grid>
                                     <Canvas Width="100" Height="100" Margin="10,10,10,10" Name="cross"  >
@@ -42,6 +42,15 @@
                                                     <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:CellType.X}" >
                                                         <Setter Property="Visibility" Value="Visible" />
                                                     </DataTrigger>
+                                                    <MultiDataTrigger >
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Path=Type}" Value="{x:Static local:CellType.Clear}" />
+                                                            <Condition Binding="{Binding ElementName=btn, Path=IsMouseOver}" Value="True" />
+                                                            <Condition Binding="{Binding ElementName=WndMain , Path=UserCellType}" Value="{x:Static local:CellType.X}" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                        <Setter Property="Opacity" Value="0.5" />
+                                                    </MultiDataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Canvas.Style>
@@ -55,6 +64,15 @@
                                                     <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:CellType.O}" >
                                                         <Setter Property="Visibility" Value="Visible" />
                                                     </DataTrigger>
+                                                    <MultiDataTrigger >
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Path=Type}" Value="{x:Static local:CellType.Clear}" />
+                                                            <Condition Binding="{Binding ElementName=btn, Path=IsMouseOver}" Value="True" />
+                                                            <Condition Binding="{Binding ElementName=WndMain , Path=UserCellType}" Value="{x:Static local:CellType.O}" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                        <Setter Property="Opacity" Value="0.5" />
+                                                    </MultiDataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Canvas.Style>
