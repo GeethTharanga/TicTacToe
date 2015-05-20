@@ -83,8 +83,8 @@ namespace T3WPFGui
 
             GameManager manager = new GameManager(p1, p2);
             manager.StartGame();
+            this.Visibility = System.Windows.Visibility.Hidden;
             wndMain.ShowDialog();
-
             ResetWindowState();
         }
 
@@ -95,6 +95,7 @@ namespace T3WPFGui
             var human = new HumanAgent(thisPlayer, uiHandler);
 
             GameManager manager = new GameManager(netAgent, human);
+            this.Visibility = System.Windows.Visibility.Hidden;
             wndMain.ShowDialog();
 
             ResetWindowState();
@@ -181,6 +182,7 @@ namespace T3WPFGui
         {
             IsHostingGame = IsJoiningGame = false;
             NotSelectedOption = true;
+            this.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }
