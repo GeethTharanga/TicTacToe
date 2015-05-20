@@ -4,7 +4,7 @@
         xmlns:self="clr-namespace:T3WPFGui"
         x:Class="T3WPFGui.GameSelectWindow"
         DataContext = "{Binding RelativeSource={RelativeSource Self}}"
-        Title="GameSelectWindow" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+        Title="GameSelectWindow" Height="450" Width="420" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame" />
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame" />
@@ -79,6 +79,11 @@
             Tic Tac Toe
         </TextBlock>
         <StackPanel Margin="10,10,10,0">
+            <StackPanel.Resources>
+                <Style TargetType="FrameworkElement" x:Key="SpacedStyle">
+                    <Setter Property="Margin" Value="0,10,0,0" />
+                </Style>
+            </StackPanel.Resources>
             <!--
             <StackPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0" Opacity="0.2">
@@ -96,7 +101,7 @@
             </StackPanel.Background>
             -->
             <!--    <TextBlock HorizontalAlignment="Center" FontSize="25" Text="Select Game Mode"/>  -->
-            <DockPanel >
+            <DockPanel Style="{StaticResource SpacedStyle}" >
                 <TextBlock Text="Single Player" DockPanel.Dock="Top" Style="{StaticResource GroupHeaderStyle}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -109,7 +114,7 @@
                     <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Hard"  Command="self:Commands.AIGame" Grid.Column="1" CommandParameter="local:AIMode.Hard"  Style="{StaticResource ButtonStyle}"/>
                 </Grid>
             </DockPanel>
-            <DockPanel >
+            <DockPanel  Style="{StaticResource SpacedStyle}" >
                 <TextBlock Text="Host Game" DockPanel.Dock="Top" Style="{StaticResource GroupHeaderStyle}"></TextBlock>
                 <Grid>
                     <Grid.Style>
@@ -151,7 +156,7 @@
                     </StackPanel>
                 </Grid>
             </DockPanel>
-            <DockPanel>
+            <DockPanel  Style="{StaticResource SpacedStyle}" >
                 <TextBlock Text="Join Game" DockPanel.Dock="Top" Style="{StaticResource GroupHeaderStyle}"></TextBlock>
                 <Grid>
                     <Grid.Style>
@@ -165,9 +170,9 @@
                         </Style>
                     </Grid.Style>
                     <StackPanel>
-                        <DockPanel>
-                            <TextBlock DockPanel.Dock="Left">Host Address</TextBlock>
-                            <TextBox Name="TxtHostAddress" Text="localhost" />
+                        <DockPanel Margin="17,10,17,5">
+                            <TextBlock DockPanel.Dock="Left" Margin="0,0,5,0" FontSize="16">Host Address :</TextBlock>
+                            <TextBox Name="TxtHostAddress" Text="localhost"  FontSize="16" />
                         </DockPanel>
                         <Button Content="Join" CommandParameter="{Binding ElementName=TxtHostAddress, Path=Text}"
                                 Command="self:Commands.JoinGame" DockPanel.Dock="Right" Style="{StaticResource ButtonStyle}">
