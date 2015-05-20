@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using T3Network;
 using TicTacToe.Core;
 using TicTacToe.Core.Agent;
 using TicTacToe.Core.Agent.AI;
@@ -53,12 +54,16 @@ namespace T3WPFGui
 
         #endregion UI Dependency Properties
 
+
+        private NetworkListener listener;
+        private NetworkClient client;
+
         public GameSelectWindow()
         {
             InitializeComponent();
         }
 
-        private void StartGame(PlayingAgent otherAgent, Player thisPlayer)
+        private void StartNewGame(PlayingAgent otherAgent, Player thisPlayer)
         {
             MainWindow wndMain = new MainWindow();
             var uiHandler = new UIBase(wndMain);
@@ -79,46 +84,103 @@ namespace T3WPFGui
             GameManager manager = new GameManager(p1, p2);
             manager.StartGame();
             wndMain.ShowDialog();
+
+            ResetWindowState();
+        }
+
+        private void JoinGame(RemoteStartingAgent netAgent, Player thisPlayer)
+        {
+            MainWindow wndMain = new MainWindow();
+            var uiHandler = new UIBase(wndMain);
+            var human = new HumanAgent(thisPlayer, uiHandler);
+
+            GameManager manager = new GameManager(netAgent, human);
+            wndMain.ShowDialog();
+
+            ResetWindowState();
+            
         }
 
         private void NewHostGame(object sender, ExecutedRoutedEventArgs e)
         {
             NotSelectedOption = false;
             IsHostingGame = true;
-            MessageBox.Show("Not implemented");
+            listener = new NetworkListener(Player.Player2);
+            listener.OnConnect += listener_OnConnect;
+            listener.StartListening();
+        }
+
+        void listener_OnConnect(object sender, System.EventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+           {
+               if (IsHostingGame)
+               {
+                   NetworkAgent agent = listener.Agent;
+                   this.StartNewGame(agent, Player.Player1);
+               }
+           });
         }
 
         private void NewAIGame(object sender, ExecutedRoutedEventArgs e)
         {
             PlayingAgent ai = new AIRandomAgent(Player.Player2);
-            StartGame(ai, Player.Player1);
+            StartNewGame(ai, Player.Player1);
         }
 
         private void NewJoinGame(object sender, ExecutedRoutedEventArgs e)
         {
             NotSelectedOption = false;
             IsJoiningGame = true;
-            MessageBox.Show("Not implemented");
+            var addr = (string) e.Parameter;
+            client = new NetworkClient(addr, Player.Player1);
+            client.OnConnect += client_OnConnect;
+            client.OnError += client_OnError;
+            client.Connect();
+        }
+
+        void client_OnError(object sender, string e)
+        {
+            Dispatcher.Invoke(() =>
+           {
+               MessageBox.Show("Unable to join game\nError: " + e, "Error", MessageBoxButton.OK, MessageBoxImage.Stop);
+               ResetWindowState();
+           });
+        }
+
+        void client_OnConnect(object sender, System.EventArgs e)
+        {
+            RemoteStartingAgent agent = client.Agent;
+            Dispatcher.Invoke(() =>
+            {
+                JoinGame(agent, Player.Player2);
+            });
         }
 
         private void CancelJoinGame(object sender, ExecutedRoutedEventArgs e)
         {
-            NotSelectedOption = true;
-            IsJoiningGame = false ;
-            MessageBox.Show("Not implemented");
+            ResetWindowState();
+            client.Dispose();
+            client = null;
         }
 
         private void CancelHostGame(object sender, ExecutedRoutedEventArgs e)
         {
-            NotSelectedOption = true ;
-            IsHostingGame = false;
-            MessageBox.Show("Not implemented");
+            ResetWindowState();
+            listener.Dispose();
+            listener = null;
         }
 
         private void CanStartJoining(object sender, CanExecuteRoutedEventArgs e)
         {
             var address = (string)e.Parameter;
             e.CanExecute = !string.IsNullOrWhiteSpace(address);
+        }
+
+        private void ResetWindowState()
+        {
+            IsHostingGame = IsJoiningGame = false;
+            NotSelectedOption = true;
         }
     }
 }
