@@ -82,7 +82,7 @@ namespace T3Test.Network
                 byte[] header = new byte[1];
                 while (true)
                 {
-                    Task<int> task;
+                    Task<int> task = null ;
                     try
                     {
                         task = input.ReadAsync(header, 0, 1, tokenSource.Token);
@@ -96,9 +96,10 @@ namespace T3Test.Network
                             if (StreamClosed != null)
                             {
                                 StreamClosed(this, new EventArgs());
-                                return;
                             }
+                            return;
                         }
+                        throw;
                     }
                     if (task.IsCanceled || tokenSource.Token.IsCancellationRequested)
                     {
