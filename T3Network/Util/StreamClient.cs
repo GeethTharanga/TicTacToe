@@ -24,6 +24,7 @@ namespace T3Test.Network
         private CancellationTokenSource tokenSource;
 
         public event NetMessageHandler MessageReceived;
+        public event EventHandler StreamClosed;
 
         public StreamClient(Stream input, Stream output)
         {
@@ -81,8 +82,24 @@ namespace T3Test.Network
                 byte[] header = new byte[1];
                 while (true)
                 {
-                    var task = input.ReadAsync(header, 0, 1, tokenSource.Token);
-                    await task;
+                    Task<int> task;
+                    try
+                    {
+                        task = input.ReadAsync(header, 0, 1, tokenSource.Token);
+                        await task;
+                    }
+                    catch(Exception ex)
+                    {
+                        if (ex is ObjectDisposedException || ex is IOException)
+                        {
+                            logger.Warn("Stream error", ex);
+                            if (StreamClosed != null)
+                            {
+                                StreamClosed(this, new EventArgs());
+                                return;
+                            }
+                        }
+                    }
                     if (task.IsCanceled || tokenSource.Token.IsCancellationRequested)
                     {
                         return;

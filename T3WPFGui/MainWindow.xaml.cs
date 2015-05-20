@@ -100,7 +100,7 @@ namespace T3WPFGui
             {
                 IsGameInProgress = board.IsGameInProgress;
                 IsUserTurn = (board.CurrentStatus == Status.TurnP1 && thisPlayer == Player.Player1)
-                             || (board.CurrentStatus == Status.TurnP2 && thisPlayer == Player.Player1);
+                             || (board.CurrentStatus == Status.TurnP2 && thisPlayer == Player.Player2);
                 UpdateCells(board, thisPlayer);
             });
         }
@@ -149,7 +149,7 @@ namespace T3WPFGui
 
         public void UIClose()
         {
-            throw new NotImplementedException();
+            this.Close();
         }
 
         private void Cell_Click(object sender, ExecutedRoutedEventArgs e)

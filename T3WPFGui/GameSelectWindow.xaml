@@ -82,7 +82,7 @@
                 <StackPanel   >
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Left">Host Address</TextBlock>
-                        <TextBox Name="TxtHostAddress" />
+                        <TextBox Name="TxtHostAddress" Text="localhost" />
                     </DockPanel>
                     <Button Content="Join" CommandParameter="{Binding ElementName=TxtHostAddress, Path=Text}" Command="self:Commands.JoinGame" DockPanel.Dock="Right"  >
                     </Button> 
