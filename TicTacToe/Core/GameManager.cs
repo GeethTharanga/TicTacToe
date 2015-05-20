@@ -77,8 +77,11 @@ namespace TicTacToe.Core
             logger.Info("Starting player : {0}", startPlayer);
             var task = Task.Delay(delayPeriod).ContinueWith((e) =>
             {
-                p1.InformStart(startPlayer);
-                p2.InformStart(startPlayer);
+                if (!IsGameEnded)
+                {
+                    p1.InformStart(startPlayer);
+                    p2.InformStart(startPlayer);
+                }
             });
             board.StartGame(startPlayer);
         }
