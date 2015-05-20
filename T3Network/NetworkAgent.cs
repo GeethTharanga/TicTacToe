@@ -11,7 +11,7 @@ using TicTacToe.Core.Agent;
 
 namespace T3Network
 {
-    public class NetworkAgent : RemoteStartingAgent
+    public sealed class NetworkAgent : RemoteStartingAgent
     {
         private Logger logger = LogManager.GetCurrentClassLogger();
         private Stream input, output;

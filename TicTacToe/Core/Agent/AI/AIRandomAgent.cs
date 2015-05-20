@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace TicTacToe.Core.Agent.AI
 {
-    public class AIRandomAgent : AIAgent
+    public sealed class AIRandomAgent : AIAgent
     {
         private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private Random rand = new Random();

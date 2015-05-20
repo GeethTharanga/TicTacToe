@@ -19,17 +19,6 @@ namespace T3Test.Core.Agent.Human
 
         [TestMethod]
 
-        public void TestHumanAgent()
-        {
-            PlayingAgent p1 = new AIRandomAgent(Player.Player1), p2;
-           // IBasicUI ui = new SimpleGUIForm();
-            //UIBase uiHandler = new UIBase(ui);
-            IBasicUI uiConsole = new ConsoleUI();
-            UIBase uiHandler = new UIBase(uiConsole);
-            p2 = new HumanAgent(Player.Player2, uiHandler);
-
-         //   TestAgents(p1, p2);
-        }
 
         private void TestAgents(PlayingAgent p1, PlayingAgent p2)
         {

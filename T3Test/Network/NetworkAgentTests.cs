@@ -39,13 +39,13 @@ namespace T3Test.Network
             hostAi = new AIRandomAgent(TicTacToe.Core.Player.Player1);
             guestAi = new AIRandomAgent(TicTacToe.Core.Player.Player2);
 
-            hostAi.ThinkDuration = guestAi.ThinkDuration = 100;
+            hostAi.ThinkDuration = guestAi.ThinkDuration = 70;
 
             GameManager hostManager, guestManager;
             hostManager = new GameManager(hostAi, host);  //host
             guestManager = new GameManager(guest, guestAi);  //guest
 
-            hostManager.GameStartDelay = 100;
+            hostManager.GameStartDelay = 10;
             
             hostAi.OnMove += (s, e) => { Console.WriteLine("hostAI " + e); };
             host.OnMove += (s, e) => { Console.WriteLine("host " + e); };

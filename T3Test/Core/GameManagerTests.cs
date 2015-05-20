@@ -9,6 +9,7 @@ namespace T3Test.Core
     [TestClass]
     public class GameManagerTests
     {
+        bool completed;
         [TestMethod]
         public void TestGameManager()
         {
@@ -18,11 +19,11 @@ namespace T3Test.Core
             manager.GameStartDelay = 5;
 
             AutoResetEvent ev = new AutoResetEvent(false);
-            bool completed = false;
-            manager.OnGameEnd += (s, e) => { ev.Set(); completed=true;};
+            completed = false;
+            manager.OnGameEnd += (s, e) => { completed = true; ev.Set(); };
             manager.StartGame();
 
-            ev.WaitOne(1000);
+            ev.WaitOne(2000);
 
             Assert.IsTrue(completed);
             

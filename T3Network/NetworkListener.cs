@@ -14,7 +14,7 @@ using TicTacToe.Core;
 
 namespace T3Network
 {
-    public class NetworkListener : IDisposable
+    public sealed class NetworkListener : IDisposable
     {
         public NetworkAgent Agent  { get; private set; }
         public bool IsConnected { get; private set; }

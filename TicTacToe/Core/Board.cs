@@ -23,7 +23,7 @@ namespace TicTacToe.Core
         Player1,Player2
     }
 
-    public class Board
+    public sealed class Board
     {
         //logger
         Logger logger = LogManager.GetCurrentClassLogger();

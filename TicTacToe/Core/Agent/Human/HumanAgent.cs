@@ -11,10 +11,10 @@ using TicTacToe.UI;
 
 namespace TicTacToe.Core.Agent.Human
 {
-    public class HumanAgent : PlayingAgent 
+    public sealed class HumanAgent : PlayingAgent 
     {
         Logger logger = LogManager.GetCurrentClassLogger();
-        protected UIBase ui;
+        private UIBase ui;
 
         public HumanAgent(Player player,UIBase ui):base(player)
         {

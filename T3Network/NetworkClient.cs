@@ -10,7 +10,7 @@ using TicTacToe.Core.Agent;
 
 namespace T3Network
 {
-    public class NetworkClient : IDisposable 
+    public sealed class NetworkClient : IDisposable 
     {
         private string ip;
         private TcpClient cl;

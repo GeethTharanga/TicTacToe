@@ -9,7 +9,7 @@ using TicTacToe.Util;
 
 namespace TicTacToe.Core
 {
-    public class GameManager
+    public sealed class GameManager
     {
         private PlayingAgent p1, p2;
         private bool host;

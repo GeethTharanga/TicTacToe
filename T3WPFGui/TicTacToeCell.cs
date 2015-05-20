@@ -10,7 +10,7 @@ namespace T3WPFGui
         Clear, O, X
     }
 
-    public class TicTacToeCell : INotifyPropertyChanged
+    public sealed class TicTacToeCell : INotifyPropertyChanged
     {
         private CellType type;
 
