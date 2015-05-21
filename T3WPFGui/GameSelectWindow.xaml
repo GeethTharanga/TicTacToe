@@ -152,7 +152,7 @@
                             </Style>
                         </StackPanel.Style>
                         <TextBlock DockPanel.Dock="Left" >Waiting for someone to connect</TextBlock>
-                        <Button Content="Cancel" Command="self:Commands.CancelHost" />
+                        <Button Content="Cancel" Command="self:Commands.CancelHost"   Style="{StaticResource ButtonStyle}"/>
                     </StackPanel>
                 </Grid>
             </DockPanel>
@@ -200,8 +200,11 @@
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
-                        <TextBlock DockPanel.Dock="Left" TextAlignment="Center" >Connecting to 127.0.0.1</TextBlock>
-                        <Button Content="Cancel" Command="self:Commands.CancelJoin" />
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock  TextAlignment="Center" xml:space="preserve">Connecting to </TextBlock>
+                            <TextBlock  TextAlignment="Center" Text="{Binding ElementName=TxtHostAddress, Path=Text}" />
+                        </StackPanel>
+                        <Button Content="Cancel" Command="self:Commands.CancelJoin"  Style="{StaticResource ButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </DockPanel>
