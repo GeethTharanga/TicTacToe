@@ -4,6 +4,7 @@
         xmlns:local="clr-namespace:T3WPFGui"
         Title="MainWindow" Height="500" Width="360"
          DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+        ResizeMode="CanMinimize" 
         Name="WndMain" Closed="WndMain_Closed" WindowStartupLocation="CenterScreen" >
     <Window.CommandBindings>
         <CommandBinding Command="local:Commands.MarkCell" Executed="Cell_Click" CanExecute="IsCellClickable" />
