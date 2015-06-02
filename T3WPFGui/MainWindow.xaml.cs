@@ -50,6 +50,33 @@ namespace T3WPFGui
         public static readonly DependencyProperty IsUserTurnProperty =
             DependencyProperty.Register("IsUserTurn", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
 
+
+
+        public string  DisplayStatus
+        {
+            get { return (string )GetValue(DisplayStatusProperty); }
+            set { SetValue(DisplayStatusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DisplayStatus.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DisplayStatusProperty =
+            DependencyProperty.Register("DisplayStatus", typeof(string), typeof(MainWindow), new PropertyMetadata(""));
+
+
+
+
+        public bool ShowBanner
+        {
+            get { return (bool)GetValue(ShowBannerProperty); }
+            set { SetValue(ShowBannerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowBanner.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowBannerProperty =
+            DependencyProperty.Register("ShowBanner", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
+
+
         #endregion
 
 
@@ -90,6 +117,9 @@ namespace T3WPFGui
                     Cells.Add(cell);
                 }
             }
+
+            DisplayStatus = "Waiting for game to start";
+            ShowBanner = true;
         }
 
         public event EventHandler UIOnClose;
@@ -102,6 +132,7 @@ namespace T3WPFGui
                 IsGameInProgress = board.IsGameInProgress;
                 IsUserTurn = (board.CurrentStatus == Status.TurnP1 && thisPlayer == Player.Player1)
                              || (board.CurrentStatus == Status.TurnP2 && thisPlayer == Player.Player2);
+                UpdateBanner(board, thisPlayer);
                 UpdateCells(board, thisPlayer);
             });
         }
@@ -110,6 +141,58 @@ namespace T3WPFGui
         {
             int pos = row * 3 + col;
             return Cells[pos];
+        }
+
+        private void UpdateBanner(Board board,Player thisPlayer)
+        {
+            switch (board.CurrentStatus)
+            {
+                case Status.NotStarted:
+                    DisplayStatus = "Waiting for game to start";
+                    ShowBanner = true;
+                    break;
+                case Status.TurnP1:
+                case Status.TurnP2:
+                    {
+                        if ((Status.TurnP1 == board.CurrentStatus && thisPlayer == Player.Player1) ||
+                            (Status.TurnP2 == board.CurrentStatus && thisPlayer == Player.Player2)) //player turn
+                        {
+                            DisplayStatus = "Your Turn";
+                        }
+                        else
+                        {
+                            DisplayStatus = "Oppotent Turn";
+                        }
+                        ShowBanner = false;
+                    }
+                    break;
+                case Status.WonP1:
+                case Status.WonP2:
+                    {
+                        if ((Status.WonP1 == board.CurrentStatus && thisPlayer == Player.Player1) ||
+                            (Status.WonP2 == board.CurrentStatus && thisPlayer == Player.Player2)) //player turn
+                        {
+                            DisplayStatus = "You Win!";
+                        }
+                        else
+                        {
+                            DisplayStatus = "You Lost!";
+                        }
+                        ShowBanner = true;
+                    }
+                    break;
+                case Status.Tie:
+                    DisplayStatus = "Game Tied";
+                    ShowBanner = true;
+                    break;
+                case Status.Cancelled:
+                    DisplayStatus = "Game was Cancelled";
+                    ShowBanner = true;
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         private void UpdateCells(Board board, Player thisPlayer)

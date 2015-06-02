@@ -2,103 +2,130 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:T3WPFGui"
-        Title="MainWindow" Height="400" Width="400"
-         DataContext = "{Binding RelativeSource={RelativeSource Self}}" 
-        Name="WndMain" Closed="WndMain_Closed"
-        >
-    
+        Title="MainWindow" Height="500" Width="450"
+         DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+        Name="WndMain" Closed="WndMain_Closed">
     <Window.CommandBindings>
         <CommandBinding Command="local:Commands.MarkCell" Executed="Cell_Click" CanExecute="IsCellClickable" />
     </Window.CommandBindings>
-
-    <Grid>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Border Background="Aqua">
-            <ItemsControl Name="CellControl" ItemsSource="{Binding Cells}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="3"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn}"
-                                 Command="local:Commands.MarkCell" CommandParameter="{Binding}" Tag="{Binding}" Name="btn" >
-                            <Viewbox Stretch="Uniform" >
-                                <Grid>
-                                    <Canvas Width="100" Height="100" Margin="10,10,10,10" Name="cross"  >
-                                        <Line X1="0" X2="100" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round"  />
-                                        <Line X1="100" X2="0" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                                        <Canvas.Style>
-                                            <Style TargetType="Canvas" >
-                                                <Setter Property="Visibility" Value="Hidden" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:CellType.X}" >
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                    </DataTrigger>
-                                                    <MultiDataTrigger >
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding Path=Type}" Value="{x:Static local:CellType.Clear}" />
-                                                            <Condition Binding="{Binding ElementName=btn, Path=IsMouseOver}" Value="True" />
-                                                            <Condition Binding="{Binding ElementName=WndMain , Path=UserCellType}" Value="{x:Static local:CellType.X}" />
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                        <Setter Property="Opacity" Value="0.5" />
-                                                    </MultiDataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Canvas.Style>
-                                    </Canvas>
-                                    <Canvas Width="100" Height="100" Margin="10,10,10,10" Name="circle" >
-                                        <Ellipse Width="100" Height="100" Stroke="Blue" StrokeThickness="10" />
-                                        <Canvas.Style>
-                                            <Style TargetType="Canvas" >
-                                                <Setter Property="Visibility" Value="Hidden" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:CellType.O}" >
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                    </DataTrigger>
-                                                    <MultiDataTrigger >
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding Path=Type}" Value="{x:Static local:CellType.Clear}" />
-                                                            <Condition Binding="{Binding ElementName=btn, Path=IsMouseOver}" Value="True" />
-                                                            <Condition Binding="{Binding ElementName=WndMain , Path=UserCellType}" Value="{x:Static local:CellType.O}" />
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                        <Setter Property="Opacity" Value="0.5" />
-                                                    </MultiDataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Canvas.Style>
-                                    </Canvas>
-                                    
-                                </Grid>
-                            </Viewbox> 
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Border>
-        <!--  ->
-        <Button >
-            <Viewbox Stretch="Uniform" >
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock HorizontalAlignment="Center" FontSize="30">Tic Tac Toe</TextBlock>
+            <TextBlock Height="30" FontSize="25" Text="{Binding DisplayStatus}"></TextBlock>
+        </StackPanel>
+        <Grid Background="Green">  
+            <Grid Margin="10,10,10,10">  <!-- Tic tac toe grid -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Background="Aqua">
+                    <ItemsControl Name="CellControl" ItemsSource="{Binding Cells}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button IsEnabled="{Binding ElementName=WndMain , Path=IsUserTurn}"
+                                 Command="local:Commands.MarkCell" CommandParameter="{Binding}" Tag="{Binding}" Name="btn">
+                                    <Viewbox Stretch="Uniform">
+                                        <Grid>
+                                            <Canvas Width="100" Height="100" Margin="10,10,10,10" Name="cross">
+                                                <Line X1="0" X2="100" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                                                <Line X1="100" X2="0" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                                                <Canvas.Style>
+                                                    <Style TargetType="Canvas">
+                                                        <Setter Property="Visibility" Value="Hidden" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:CellType.X}">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding Path=Type}" Value="{x:Static local:CellType.Clear}" />
+                                                                    <Condition Binding="{Binding ElementName=btn, Path=IsMouseOver}" Value="True" />
+                                                                    <Condition Binding="{Binding ElementName=WndMain , Path=UserCellType}" Value="{x:Static local:CellType.X}" />
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                <Setter Property="Opacity" Value="0.5" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Canvas.Style>
+                                            </Canvas>
+                                            <Canvas Width="100" Height="100" Margin="10,10,10,10" Name="circle">
+                                                <Ellipse Width="100" Height="100" Stroke="Blue" StrokeThickness="10" />
+                                                <Canvas.Style>
+                                                    <Style TargetType="Canvas">
+                                                        <Setter Property="Visibility" Value="Hidden" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:CellType.O}">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding Path=Type}" Value="{x:Static local:CellType.Clear}" />
+                                                                    <Condition Binding="{Binding ElementName=btn, Path=IsMouseOver}" Value="True" />
+                                                                    <Condition Binding="{Binding ElementName=WndMain , Path=UserCellType}" Value="{x:Static local:CellType.O}" />
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                <Setter Property="Opacity" Value="0.5" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Canvas.Style>
+                                            </Canvas>
+                                        </Grid>
+                                    </Viewbox>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+                <!--  ->
+        <Button>
+            <Viewbox Stretch="Uniform">
                 <!-
                 <Canvas Width="100" Height="100" Margin="10,10,10,10">
-                    <Line X1="0" X2="100" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round"  />
-                    <Line X1="100" X2="0" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                </Canvas> 
+                    <Line X1="0" X2="100" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                    <Line X1="100" X2="0" Y1="0" Y2="100" StrokeThickness="10" Stroke="Red" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                </Canvas>
                 <Canvas Width="100" Height="100" Margin="10,10,10,10">
                     <Ellipse Width="100" Height="100" Stroke="Blue" StrokeThickness="10" />
                 </Canvas>
             </Viewbox>
         </Button>
-         <!-   --> 
-    </Grid>
-
+         <!-   -->
+            </Grid>
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Hidden"  />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShowBanner}" Value="True" >
+                                <Setter Property="Visibility" Value="Visible"  />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Rectangle Fill="Gray" Opacity="0.5" />
+                <Grid Height="100" > <!-- Banner -->
+                    <Rectangle  Height="100"  Opacity="0.4">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FFDED419" Offset="0.028"/>
+                                <GradientStop Color="#FFA89904" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="{Binding DisplayStatus}">
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
