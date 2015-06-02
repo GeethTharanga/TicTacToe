@@ -4,7 +4,7 @@
         xmlns:self="clr-namespace:T3WPFGui"
         x:Class="T3WPFGui.GameSelectWindow"
         DataContext = "{Binding RelativeSource={RelativeSource Self}}"
-        Title="GameSelectWindow" Height="450" Width="420" WindowStartupLocation="CenterScreen">
+        Title="GameSelectWindow" Height="500" Width="420" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" >
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame" />
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame" />
@@ -75,9 +75,11 @@
                 </Setter>
             </Style>
         </StackPanel.Style>
-        <TextBlock HorizontalAlignment="Center" FontSize="54" FontWeight="Black" FontFamily="Cambria" RenderTransformOrigin="0.5,0.5">
+        <!--<TextBlock HorizontalAlignment="Center" FontSize="54" FontWeight="Black" FontFamily="Cambria" RenderTransformOrigin="0.5,0.5">
             Tic Tac Toe
-        </TextBlock>
+        </TextBlock>-->
+        <Image Source="images/logo.png" Margin="10,15,10,10">
+        </Image>
         <StackPanel Margin="10,10,10,0">
             <StackPanel.Resources>
                 <Style TargetType="FrameworkElement" x:Key="SpacedStyle">
@@ -140,7 +142,7 @@
                         </Button.Style>
                         Host Game
                     </Button>
-                    <StackPanel>
+                    <StackPanel Margin="17,0,17,0">
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -151,7 +153,7 @@
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
-                        <TextBlock DockPanel.Dock="Left" >Waiting for someone to connect</TextBlock>
+                        <TextBlock DockPanel.Dock="Left" FontSize="16">Waiting for someone to connect</TextBlock>
                         <Button Content="Cancel" Command="self:Commands.CancelHost"   Style="{StaticResource ButtonStyle}"/>
                     </StackPanel>
                 </Grid>
@@ -189,7 +191,7 @@
                             </Style>
                         </StackPanel.Style>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Margin="17,10,17,5">
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility"  Value="Collapsed" />
@@ -201,8 +203,8 @@
                             </Style>
                         </StackPanel.Style>
                         <StackPanel Orientation="Horizontal" >
-                            <TextBlock  TextAlignment="Center" xml:space="preserve">Connecting to </TextBlock>
-                            <TextBlock  TextAlignment="Center" Text="{Binding ElementName=TxtHostAddress, Path=Text}" />
+                            <TextBlock FontSize="16"  TextAlignment="Center" xml:space="preserve">Connecting to </TextBlock>
+                            <TextBlock FontSize="16" TextAlignment="Center" Text="{Binding ElementName=TxtHostAddress, Path=Text}" />
                         </StackPanel>
                         <Button Content="Cancel" Command="self:Commands.CancelJoin"  Style="{StaticResource ButtonStyle}" />
                     </StackPanel>
