@@ -116,10 +116,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Easy"  Command="self:Commands.AIGame" Grid.Column="0" CommandParameter="local:AIMode.Easy"  Style="{StaticResource ButtonStyle}">
+                    <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Easy"  Command="self:Commands.AIGame" Grid.Column="0" CommandParameter="{x:Static self:AIMode.Easy}"  Style="{StaticResource ButtonStyle}">
 
                     </Button>
-                    <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Hard"  Command="self:Commands.AIGame" Grid.Column="1" CommandParameter="local:AIMode.Hard"  Style="{StaticResource ButtonStyle}"/>
+                    <Button  IsEnabled="{Binding Path=NotSelectedOption}" Content="Hard"  Command="self:Commands.AIGame" Grid.Column="1" CommandParameter="{x:Static self:AIMode.Hard}"  Style="{StaticResource ButtonStyle}"/>
                 </Grid>
             </DockPanel>
             <DockPanel  Style="{StaticResource SpacedStyle}" >
