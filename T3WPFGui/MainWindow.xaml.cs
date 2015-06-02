@@ -20,6 +20,20 @@ namespace T3WPFGui
 
         #region Dependency Properties
 
+
+
+        public bool IsGameEnded
+        {
+            get { return (bool)GetValue(IsGameEndedProperty); }
+            set { SetValue(IsGameEndedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsGameEnded.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsGameEndedProperty =
+            DependencyProperty.Register("IsGameEnded", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
+
+
         public bool IsGameInProgress
         {
             get { return (bool)GetValue(GameInProgressProperty); }
@@ -130,6 +144,7 @@ namespace T3WPFGui
             {
                 UserCellType = thisPlayer == Player.Player1 ? CellType.O : CellType.X;
                 IsGameInProgress = board.IsGameInProgress;
+                IsGameEnded = board.IsGameEnded;
                 IsUserTurn = (board.CurrentStatus == Status.TurnP1 && thisPlayer == Player.Player1)
                              || (board.CurrentStatus == Status.TurnP2 && thisPlayer == Player.Player2);
                 UpdateBanner(board, thisPlayer);
@@ -255,6 +270,11 @@ namespace T3WPFGui
         {
             if (UIOnClose != null)
                 UIOnClose(this, e);
+        }
+
+        private void LinkContinue_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

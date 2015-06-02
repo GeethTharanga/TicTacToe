@@ -4,25 +4,25 @@
         xmlns:local="clr-namespace:T3WPFGui"
         Title="MainWindow" Height="500" Width="360"
          DataContext = "{Binding RelativeSource={RelativeSource Self}}"
-        ResizeMode="CanMinimize" 
-        Name="WndMain" Closed="WndMain_Closed" WindowStartupLocation="CenterScreen" >
+        ResizeMode="CanMinimize"
+        Name="WndMain" Closed="WndMain_Closed" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="local:Commands.MarkCell" Executed="Cell_Click" CanExecute="IsCellClickable" />
     </Window.CommandBindings>
     <DockPanel>
         <DockPanel.Background>
             <LinearGradientBrush EndPoint="0.75,1" MappingMode="RelativeToBoundingBox" StartPoint="0.25,0">
-                <GradientStop Color="#FFDAD490" Offset="0"/>
-                <GradientStop Color="#FFB87008" Offset="1"/>
+                <GradientStop Color="#FFDAD490" Offset="0" />
+                <GradientStop Color="#FFB87008" Offset="1" />
             </LinearGradientBrush>
         </DockPanel.Background>
         <DockPanel.Style>
             <Style TargetType="DockPanel">
-                <Setter Property="Background" >
+                <Setter Property="Background">
                     <Setter.Value>
                         <LinearGradientBrush EndPoint="0.75,1" MappingMode="RelativeToBoundingBox" StartPoint="0.25,0">
-                            <GradientStop Color="#FFAEE0B0" Offset="0"/>
-                            <GradientStop Color="#FF2DB632" Offset="1"/>
+                            <GradientStop Color="#FFAEE0B0" Offset="0" />
+                            <GradientStop Color="#FF2DB632" Offset="1" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -31,8 +31,8 @@
         <StackPanel DockPanel.Dock="Top">
             <!--<StackPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF7ECF71" Offset="0"/>
-                    <GradientStop Color="#FF1E870D" Offset="1"/>
+                    <GradientStop Color="#FF7ECF71" Offset="0" />
+                    <GradientStop Color="#FF1E870D" Offset="1" />
                 </LinearGradientBrush>
             </StackPanel.Background>-->
             <!--<TextBlock HorizontalAlignment="Center" FontSize="30">Tic Tac Toe</TextBlock>-->
@@ -41,17 +41,17 @@
                        Foreground="Cyan" FontSize="25" Text="{Binding DisplayStatus}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Visible"  />
+                        <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShowBanner}" Value="True" >
-                                <Setter Property="Visibility" Value="Hidden"  />
+                            <DataTrigger Binding="{Binding ShowBanner}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
         </StackPanel>
-        <Grid >
+        <Grid>
             <Grid Margin="10,10,10,10">
                 <!-- Tic tac toe grid -->
                 <Grid.ColumnDefinitions>
@@ -140,32 +140,49 @@
         </Button>
          <!-   -->
             </Grid>
-            <Grid>
+            <Grid >
                 <Grid.Style>
                     <Style TargetType="Grid">
-                        <Setter Property="Visibility" Value="Hidden"  />
+                        <Setter Property="Visibility" Value="Hidden" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShowBanner}" Value="True" >
-                                <Setter Property="Visibility" Value="Visible"  />
+                            <DataTrigger Binding="{Binding ShowBanner}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
                 <Rectangle Fill="Gray" Opacity="0.5" />
-                <Grid Height="100" >
+                <Grid Height="100">
                     <!-- Banner -->
                     <Rectangle  Height="100"  Opacity="0.4">
                         <Rectangle.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                <GradientStop Color="#FFDED419" Offset="0.028"/>
-                                <GradientStop Color="#FFA89904" Offset="1"/>
+                                <GradientStop Color="#FFDED419" Offset="0.028" />
+                                <GradientStop Color="#FFA89904" Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontWeight="ExtraBlack"
-                               TextWrapping="Wrap" 
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Bottom" Margin="0,0,0,25" TextAlignment="Center"  FontSize="15"  >
+                            <Hyperlink Click="LinkContinue_Click" TextDecorations="None" Foreground="Black">
+                            Click to continue
+                             </Hyperlink>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" >
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsGameEnded}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontWeight="ExtraBlack"
+                               TextWrapping="Wrap"
                                FontSize="35" Text="{Binding DisplayStatus}">
-                    </TextBlock>
+                        </TextBlock>
+                    </DockPanel>
                 </Grid>
             </Grid>
         </Grid>
