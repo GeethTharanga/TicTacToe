@@ -61,6 +61,12 @@
         </Style>
     </Window.Resources>
     <StackPanel>
+        <StackPanel.Background>
+            <LinearGradientBrush EndPoint="0.75,1" MappingMode="RelativeToBoundingBox" StartPoint="0.25,0">
+                <GradientStop Color="#FFDAD490" Offset="0"/>
+                <GradientStop Color="#FFB87008" Offset="1"/>
+            </LinearGradientBrush>
+        </StackPanel.Background>
         <!-- Style for Main window background -->
         <StackPanel.Style>
             <Style TargetType="StackPanel">

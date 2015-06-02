@@ -161,7 +161,7 @@ namespace T3WPFGui
                         }
                         else
                         {
-                            DisplayStatus = "Oppotent Turn";
+                            DisplayStatus = "Oppotent's Turn";
                         }
                         ShowBanner = false;
                     }
