@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Agent\AI\AIAgent.cs" />
+    <Compile Include="Core\Agent\AI\AIHardAgent.cs" />
     <Compile Include="Core\Agent\AI\AIRandomAgent.cs" />
     <Compile Include="Core\Agent\Human\HumanAgent.cs" />
     <Compile Include="Core\Agent\PlayingAgent.cs" />

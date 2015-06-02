@@ -125,7 +125,16 @@ namespace T3WPFGui
 
         private void NewAIGame(object sender, ExecutedRoutedEventArgs e)
         {
-            PlayingAgent ai = new AIRandomAgent(Player.Player2);
+            AIMode mode = (AIMode)e.Parameter;
+            PlayingAgent ai;
+            if (mode == AIMode.Easy)
+            {
+                ai = new AIRandomAgent(Player.Player2);
+            }
+            else
+            {
+                ai = new AIHardAgent(Player.Player2);
+            }
             StartNewGame(ai, Player.Player1);
         }
 
