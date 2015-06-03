@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace TicTacToe.Stats
 {
-    interface IGameRecordRepository
+    public interface IGameRecordRepository : IDisposable
     {
         void SaveRecord(GamePlayRecord record);
         IEnumerable<GamePlayRecord> GetLastRecords(int maxCount);
         IDictionary<GamePlayOpponent, GamePlayStatistics> GetStatistics();
         void ClearHistory();
+
     }
 }

@@ -24,8 +24,8 @@ namespace TicTacToe.Stats
 
     public sealed class GamePlayRecord
     {
-        public GamePlayOpponent Opponent { get; set; }
         public DateTime Time { get; set; }
+        public GamePlayOpponent Opponent { get; set; }
         public GamePlayResult Result { get; set; }
     }
 

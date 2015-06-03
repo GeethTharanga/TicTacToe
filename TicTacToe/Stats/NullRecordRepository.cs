@@ -31,5 +31,9 @@ namespace TicTacToe.Stats
         public void ClearHistory()
         {
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3WPFGui", "T3WPFGui\T3WPFG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3Network", "T3Network\T3Network.csproj", "{8A7FB64E-34D3-4FD9-820C-F0A382F755BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3DBStatRepository", "T3DBStatRepository\T3DBStatRepository.csproj", "{DE4FE4AF-809D-43FA-81F6-F583509628DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8A7FB64E-34D3-4FD9-820C-F0A382F755BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A7FB64E-34D3-4FD9-820C-F0A382F755BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A7FB64E-34D3-4FD9-820C-F0A382F755BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE4FE4AF-809D-43FA-81F6-F583509628DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4FE4AF-809D-43FA-81F6-F583509628DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE4FE4AF-809D-43FA-81F6-F583509628DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4FE4AF-809D-43FA-81F6-F583509628DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
