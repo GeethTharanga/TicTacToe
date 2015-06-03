@@ -4,7 +4,7 @@
         xmlns:self="clr-namespace:T3WPFGui"
         x:Class="T3WPFGui.GameSelectWindow"
         DataContext = "{Binding RelativeSource={RelativeSource Self}}"
-        Title="GameSelectWindow" Height="500" Width="420" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" >
+        Title="Select Game Type" Height="500" Width="420" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" >
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame" />
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame" />
