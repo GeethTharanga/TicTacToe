@@ -63,6 +63,8 @@
     <Compile Include="Core\GameManager.cs" />
     <Compile Include="Core\WinningCombinations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\GamePlayRecord.cs" />
+    <Compile Include="Stats\IGameRecordRepository.cs" />
     <Compile Include="UI\ConsoleUI.cs" />
     <Compile Include="UI\IBasicGUI.cs" />
     <Compile Include="UI\UIBase.cs" />
