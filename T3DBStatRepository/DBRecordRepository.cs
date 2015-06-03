@@ -103,7 +103,40 @@ namespace T3DBStatRepository
 
         public IDictionary<GamePlayOpponent, GamePlayStatistics> GetStatistics()
         {
-            throw new NotImplementedException();
+            //initialize empty
+            Dictionary<GamePlayOpponent, GamePlayStatistics> results = new Dictionary<GamePlayOpponent, GamePlayStatistics>();
+            results[GamePlayOpponent.AIEasy] = new GamePlayStatistics { Losses = 0, Wins = 0 };
+            results[GamePlayOpponent.AIHard] = new GamePlayStatistics { Losses = 0, Wins = 0 };
+            results[GamePlayOpponent.Human] = new GamePlayStatistics { Losses = 0, Wins = 0 };
+
+
+            using (SqlCeCommand comm = conn.CreateCommand())
+            {
+                comm.CommandText = @"SELECT Opponent, Result, COUNT(*) FROM History
+                            GROUP BY Opponent, Result";
+
+                var reader = comm.ExecuteReader();
+                while (reader.Read())
+                {
+                    GamePlayOpponent opp = (GamePlayOpponent) reader.GetInt32(0);
+                    GamePlayResult res = (GamePlayResult)reader.GetInt32(1);
+                    int count = reader.GetInt32(2);
+                    switch (res)
+                    {
+                        case GamePlayResult.Tied:
+                            results[opp].Tied = count;
+                            break;
+                        case GamePlayResult.Won:
+                            results[opp].Wins = count;
+                            break;
+                        case GamePlayResult.Loss:
+                            results[opp].Losses = count;
+                            break;
+                    }
+                }
+            }
+
+            return results;
         }
 
         public void ClearHistory()

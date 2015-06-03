@@ -33,6 +33,7 @@ namespace TicTacToe.Stats
     {
         public int Wins { get; set; }
         public int Losses { get; set; }
+        public int Tied { get; set; }
     }
 
 }
