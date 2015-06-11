@@ -18,7 +18,6 @@ namespace TicTacToe.Core.Agent.AI
 
         public AIAgent(Player thisPlayer):base(thisPlayer)
         {
-            AgentName = "AI";
             logger.Info("Creating random AI agent for : {0}", thisPlayer);
             ThinkDuration = Config.AIThinkDuration;
         }

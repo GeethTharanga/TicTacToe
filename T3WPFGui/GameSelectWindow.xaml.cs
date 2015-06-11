@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using T3DBStatRepository;
 using T3Network;
 using TicTacToe.Core;
 using TicTacToe.Core.Agent;
@@ -81,7 +82,7 @@ namespace T3WPFGui
                 p2 = human;
             }
 
-            GameManager manager = new GameManager(p1, p2);
+            GameManager manager = new GameManager(p1, p2,new DBRecordRepository());
             manager.StartGame();
             this.Visibility = System.Windows.Visibility.Hidden;
             wndMain.ShowDialog();
@@ -94,7 +95,7 @@ namespace T3WPFGui
             var uiHandler = new UIBase(wndMain);
             var human = new HumanAgent(thisPlayer, uiHandler);
 
-            GameManager manager = new GameManager(netAgent, human);
+            GameManager manager = new GameManager(netAgent, human, new DBRecordRepository());
             this.Visibility = System.Windows.Visibility.Hidden;
             wndMain.ShowDialog();
 

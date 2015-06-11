@@ -40,5 +40,14 @@ namespace TicTacToe.Core.Agent.AI
             var move = new TTTMoveEventArgs(cell.Item1, cell.Item2, ThisPlayer);
             return move;
         }
+
+        public override string AgentName
+        {
+            get
+            {
+                return "AI Easy";
+            }
+           
+        }
     }
 }

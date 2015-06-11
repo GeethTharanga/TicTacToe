@@ -9,12 +9,6 @@ using System.Threading.Tasks;
 
 namespace TicTacToe.Stats
 {
-    public enum GamePlayOpponent
-    {
-        AIEasy,
-        AIHard,
-        Human
-    }
     public enum GamePlayResult
     {
         Tied,
@@ -25,7 +19,7 @@ namespace TicTacToe.Stats
     public sealed class GamePlayRecord
     {
         public DateTime Time { get; set; }
-        public GamePlayOpponent Opponent { get; set; }
+        public string Opponent { get; set; }
         public GamePlayResult Result { get; set; }
     }
 

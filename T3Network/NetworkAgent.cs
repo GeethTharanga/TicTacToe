@@ -111,5 +111,10 @@ namespace T3Network
             }
             return Task.FromResult(new object());
         }
+
+        public override string AgentName
+        {
+            get { return "Multiplayer"; }
+        }
     }
 }

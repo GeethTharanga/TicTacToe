@@ -51,7 +51,7 @@ namespace T3DBStatRepository
             {
                 using (SqlCeCommand comm = conn.CreateCommand())
                 { 
-                    comm.CommandText = "CREATE TABLE History (GameTime DateTime PRIMARY KEY, Opponent Integer NOT NULL, Result Integer NOT NULL)";
+                    comm.CommandText = "CREATE TABLE History (GameTime DateTime PRIMARY KEY, Opponent NTEXT NOT NULL, Result Integer NOT NULL)";
                     comm.ExecuteNonQuery();
                 }
             }
@@ -65,13 +65,13 @@ namespace T3DBStatRepository
             {
                 comm.CommandText = "INSERT INTO History(GameTime, Opponent, Result) VALUES (@time, @opponent, @result)";
                 comm.Parameters.Add(new SqlCeParameter("@time", SqlDbType.DateTime));
-                comm.Parameters.Add(new SqlCeParameter("@opponent", SqlDbType.Int));
+                comm.Parameters.Add(new SqlCeParameter("@opponent", SqlDbType.NText));
                 comm.Parameters.Add(new SqlCeParameter("@result", SqlDbType.Int));
 
                 comm.Prepare();
 
                 comm.Parameters[0].Value = record.Time;
-                comm.Parameters[1].Value = (int)record.Opponent;
+                comm.Parameters[1].Value = record.Opponent;
                 comm.Parameters[2].Value = (int)record.Result;
 
                 comm.ExecuteNonQuery();
@@ -92,7 +92,7 @@ namespace T3DBStatRepository
                 {
                     GamePlayRecord rec = new GamePlayRecord();
                     rec.Time = reader.GetDateTime(0);
-                    rec.Opponent = (GamePlayOpponent)reader.GetInt32(1);
+                    rec.Opponent = reader.GetString(1);
                     rec.Result = (GamePlayResult)reader.GetInt32(2);
                     results.Add(rec);
                 }
@@ -101,13 +101,10 @@ namespace T3DBStatRepository
             return results;
         }
 
-        public IDictionary<GamePlayOpponent, GamePlayStatistics> GetStatistics()
+        public IDictionary<string, GamePlayStatistics> GetStatistics()
         {
             //initialize empty
-            Dictionary<GamePlayOpponent, GamePlayStatistics> results = new Dictionary<GamePlayOpponent, GamePlayStatistics>();
-            results[GamePlayOpponent.AIEasy] = new GamePlayStatistics { Losses = 0, Wins = 0 };
-            results[GamePlayOpponent.AIHard] = new GamePlayStatistics { Losses = 0, Wins = 0 };
-            results[GamePlayOpponent.Human] = new GamePlayStatistics { Losses = 0, Wins = 0 };
+            Dictionary<string, GamePlayStatistics> results = new Dictionary<string, GamePlayStatistics>();
 
 
             using (SqlCeCommand comm = conn.CreateCommand())
@@ -118,7 +115,7 @@ namespace T3DBStatRepository
                 var reader = comm.ExecuteReader();
                 while (reader.Read())
                 {
-                    GamePlayOpponent opp = (GamePlayOpponent) reader.GetInt32(0);
+                    string opp = reader.GetString(0);
                     GamePlayResult res = (GamePlayResult)reader.GetInt32(1);
                     int count = reader.GetInt32(2);
                     switch (res)

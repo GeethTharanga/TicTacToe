@@ -128,5 +128,10 @@ namespace TicTacToe.Core.Agent.AI
                 return null;
             }
         }
+
+        public override string AgentName
+        {
+            get { return "AI Hard"; }
+        }
     }
 }

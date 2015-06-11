@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicTacToe.Stats;
 using TicTacToe.UI;
 
 namespace TicTacToe.Core.Agent.Human
@@ -15,7 +16,7 @@ namespace TicTacToe.Core.Agent.Human
     {
         Logger logger = LogManager.GetCurrentClassLogger();
         private UIBase ui;
-
+        
         public HumanAgent(Player player,UIBase ui):base(player)
         {
             logger.Info("Setting up human agent- {0}",player);
@@ -26,6 +27,7 @@ namespace TicTacToe.Core.Agent.Human
             ui.OnMove += ui_OnMove;
 
             this.ui = ui;
+
         }
 
         public override Task InformStart(Player starter)
@@ -76,5 +78,10 @@ namespace TicTacToe.Core.Agent.Human
         }
 
 
+
+        public override string AgentName
+        {
+            get { return "Human"; }
+        }
     }
 }

@@ -58,12 +58,17 @@
     <Compile Include="Core\Agent\Human\HumanTest.cs" />
     <Compile Include="Core\BoardTests.cs" />
     <Compile Include="Core\GameManagerTests.cs" />
+    <Compile Include="DBStat\DBStatTest.cs" />
     <Compile Include="Network\NetworkClientTests.cs" />
     <Compile Include="Network\StreamClientTest.cs" />
     <Compile Include="Network\NetworkAgentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T3DBStatRepository\T3DBStatRepository.csproj">
+      <Project>{de4fe4af-809d-43fa-81f6-f583509628df}</Project>
+      <Name>T3DBStatRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T3Network\T3Network.csproj">
       <Project>{8a7fb64e-34d3-4fd9-820c-f0a382f755bd}</Project>
       <Name>T3Network</Name>

@@ -17,13 +17,13 @@ namespace TicTacToe.Stats
             return new GamePlayRecord[0];
         }
 
-        public IDictionary<GamePlayOpponent, GamePlayStatistics> GetStatistics()
+        public IDictionary<string, GamePlayStatistics> GetStatistics()
         {
-            Dictionary<GamePlayOpponent, GamePlayStatistics> ret = new Dictionary<GamePlayOpponent, GamePlayStatistics>();
+            Dictionary<string, GamePlayStatistics> ret = new Dictionary<string, GamePlayStatistics>();
             GamePlayStatistics stat = new GamePlayStatistics { Losses = 0, Wins = 0 };
-            ret[GamePlayOpponent.AIEasy] = stat;
-            ret[GamePlayOpponent.AIHard] = stat;
-            ret[GamePlayOpponent.Human] = stat;
+            ret["AI Easy"] = stat;
+            ret["Human"] = stat;
+            ret["AI Hard"] = stat;
 
             return ret;
         }

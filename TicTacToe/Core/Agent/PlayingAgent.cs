@@ -30,7 +30,7 @@ namespace TicTacToe.Core.Agent
     {
         private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public string AgentName { get; protected set; }
+        public abstract string AgentName { get; }
 
         protected readonly Player player;
         protected readonly Board board;
@@ -73,6 +73,8 @@ namespace TicTacToe.Core.Agent
             if (OnCancelGame != null)
                 OnCancelGame(this, new EventArgs());
         }
+
+    //    public abstract string Name { get; }
 
         public override string ToString()
         {

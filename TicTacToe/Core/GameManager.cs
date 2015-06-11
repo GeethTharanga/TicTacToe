@@ -5,6 +5,7 @@ using NLog;
 using System;
 using System.Threading.Tasks;
 using TicTacToe.Core.Agent;
+using TicTacToe.Stats;
 using TicTacToe.Util;
 
 namespace TicTacToe.Core
@@ -15,6 +16,7 @@ namespace TicTacToe.Core
         private bool host;
         private Logger logger = LogManager.GetCurrentClassLogger();
         private Board board;
+        private IGameRecordRepository repo;
 
         public int GameStartDelay { get; set; }
 
@@ -41,7 +43,7 @@ namespace TicTacToe.Core
         /// </summary>
         /// <param name="p1">Player 1</param>
         /// <param name="p2">Player 2</param>
-        public GameManager(PlayingAgent p1, PlayingAgent p2)
+        public GameManager(PlayingAgent p1, PlayingAgent p2, IGameRecordRepository repo = null)
         {
             logger.Info("Creating game manager  {0}, {1}", p1, p2);
             this.p1 = p1;
@@ -51,6 +53,7 @@ namespace TicTacToe.Core
             InitBindings();
             GameStartDelay = Config.GameStartDelay;
             board = new Board();
+            this.repo = repo ?? new NullRecordRepository();
         }
 
         /// <summary>
@@ -58,11 +61,12 @@ namespace TicTacToe.Core
         /// </summary>
         /// <param name="p1">Remote agent - player 1</param>
         /// <param name="p2">Player 2</param>
-        public GameManager(RemoteStartingAgent p1, PlayingAgent p2)
+        public GameManager(RemoteStartingAgent p1, PlayingAgent p2, IGameRecordRepository repo = null)
             : this((PlayingAgent)p1, p2)
         {
             this.host = false;
             p1.OnRemoteStart += RemoteStarted;
+            this.repo = repo ?? new NullRecordRepository();
         }
 
         public void StartGame()
@@ -152,6 +156,27 @@ namespace TicTacToe.Core
             {
                 OnGameEnd(this, new EventArgs());
             }
+            GamePlayRecord record = new GamePlayRecord { Time = DateTime.Now };
+            record.Opponent = host ? p1.AgentName : p2.AgentName;
+
+            switch (board.CurrentStatus)
+            {
+                case Status.WonP1:
+                    record.Result = host ? GamePlayResult.Won : GamePlayResult.Loss;
+                    break;
+                case Status.WonP2:
+                    record.Result = (!host) ? GamePlayResult.Won : GamePlayResult.Loss;
+                    break;
+                case Status.Tie:
+                    record.Result = GamePlayResult.Tied;
+                    break;
+            }
+
+            if(board.CurrentStatus != Status.Cancelled)
+            {
+                repo.SaveRecord(record);
+            }
+            repo.Dispose();
         }
     }
 }

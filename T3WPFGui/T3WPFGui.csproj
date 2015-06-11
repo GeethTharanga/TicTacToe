@@ -133,6 +133,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T3DBStatRepository\T3DBStatRepository.csproj">
+      <Project>{de4fe4af-809d-43fa-81f6-f583509628df}</Project>
+      <Name>T3DBStatRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T3Network\T3Network.csproj">
       <Project>{8a7fb64e-34d3-4fd9-820c-f0a382f755bd}</Project>
       <Name>T3Network</Name>

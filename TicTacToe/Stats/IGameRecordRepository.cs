@@ -13,7 +13,7 @@ namespace TicTacToe.Stats
     {
         void SaveRecord(GamePlayRecord record);
         IEnumerable<GamePlayRecord> GetLastRecords(int maxCount);
-        IDictionary<GamePlayOpponent, GamePlayStatistics> GetStatistics();
+        IDictionary<string, GamePlayStatistics> GetStatistics();
         void ClearHistory();
 
     }
