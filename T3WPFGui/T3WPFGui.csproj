@@ -83,10 +83,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands.cs" />
+    <Compile Include="StatisticsWindow.xaml.cs">
+      <DependentUpon>StatisticsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameSelectWindow.xaml.cs">
       <DependentUpon>GameSelectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TicTacToeCell.cs" />
+    <Page Include="StatisticsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GameSelectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

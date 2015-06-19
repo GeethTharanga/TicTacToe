@@ -51,7 +51,7 @@ namespace T3DBStatRepository
             {
                 using (SqlCeCommand comm = conn.CreateCommand())
                 { 
-                    comm.CommandText = "CREATE TABLE History (GameTime DateTime PRIMARY KEY, Opponent NTEXT NOT NULL, Result Integer NOT NULL)";
+                    comm.CommandText = "CREATE TABLE History (GameTime DateTime PRIMARY KEY, Opponent NVARCHAR(20) NOT NULL, Result Integer NOT NULL)";
                     comm.ExecuteNonQuery();
                 }
             }
@@ -116,6 +116,10 @@ namespace T3DBStatRepository
                 while (reader.Read())
                 {
                     string opp = reader.GetString(0);
+                    if(!results.ContainsKey (opp))
+                    {
+                        results[opp] = new GamePlayStatistics();
+                    }
                     GamePlayResult res = (GamePlayResult)reader.GetInt32(1);
                     int count = reader.GetInt32(2);
                     switch (res)

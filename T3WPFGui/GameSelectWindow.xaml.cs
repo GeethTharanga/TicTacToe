@@ -194,5 +194,12 @@ namespace T3WPFGui
             NotSelectedOption = true;
             this.Visibility = System.Windows.Visibility.Visible;
         }
+
+        private void ViewStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = System.Windows.Visibility.Hidden;
+            new StatisticsWindow().ShowDialog();
+            this.Visibility = System.Windows.Visibility.Visible;
+        }
     }
 }

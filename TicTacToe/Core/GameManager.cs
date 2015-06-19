@@ -156,24 +156,25 @@ namespace TicTacToe.Core
             {
                 OnGameEnd(this, new EventArgs());
             }
-            GamePlayRecord record = new GamePlayRecord { Time = DateTime.Now };
-            record.Opponent = host ? p1.AgentName : p2.AgentName;
 
-            switch (board.CurrentStatus)
-            {
-                case Status.WonP1:
-                    record.Result = host ? GamePlayResult.Won : GamePlayResult.Loss;
-                    break;
-                case Status.WonP2:
-                    record.Result = (!host) ? GamePlayResult.Won : GamePlayResult.Loss;
-                    break;
-                case Status.Tie:
-                    record.Result = GamePlayResult.Tied;
-                    break;
-            }
 
             if(board.CurrentStatus != Status.Cancelled)
             {
+                GamePlayRecord record = new GamePlayRecord { Time = DateTime.Now };
+                record.Opponent = host ? p2.AgentName : p1.AgentName;
+
+                switch (board.CurrentStatus)
+                {
+                    case Status.WonP1:
+                        record.Result = host ? GamePlayResult.Won : GamePlayResult.Loss;
+                        break;
+                    case Status.WonP2:
+                        record.Result = (!host) ? GamePlayResult.Won : GamePlayResult.Loss;
+                        break;
+                    case Status.Tie:
+                        record.Result = GamePlayResult.Tied;
+                        break;
+                }
                 repo.SaveRecord(record);
             }
             repo.Dispose();

@@ -4,7 +4,7 @@
         xmlns:self="clr-namespace:T3WPFGui"
         x:Class="T3WPFGui.GameSelectWindow"
         DataContext = "{Binding RelativeSource={RelativeSource Self}}"
-        Title="Select Game Type" Height="500" Width="420" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" >
+        Title="Select Game Type" Height="530" Width="420" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" >
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.AIGame" Executed="NewAIGame" />
         <CommandBinding Command="self:Commands.HostGame" Executed="NewHostGame" />
@@ -214,8 +214,13 @@
                         </StackPanel>
                         <Button Content="Cancel" Command="self:Commands.CancelJoin"  Style="{StaticResource ButtonStyle}" />
                     </StackPanel>
+
                 </Grid>
             </DockPanel>
+
+            <StackPanel Margin="0,5,0,0">
+                <TextBlock TextAlignment="Center" FontSize="14" ><Hyperlink Foreground="Blue" Click="ViewStatistics_Click" IsEnabled="{Binding Path=NotSelectedOption}">View Statistics</Hyperlink></TextBlock>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </Window>
