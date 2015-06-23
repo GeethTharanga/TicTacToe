@@ -5,7 +5,7 @@
         Title="Tic Tac Toe" Height="500" Width="360"
          DataContext = "{Binding RelativeSource={RelativeSource Self}}"
         ResizeMode="CanMinimize"
-        Name="WndMain" Closed="WndMain_Closed" WindowStartupLocation="CenterScreen">
+        Name="WndMain" Closed="WndMain_Closed" WindowStartupLocation="CenterScreen" Icon="images/icon.ico">
     <Window.CommandBindings>
         <CommandBinding Command="local:Commands.MarkCell" Executed="Cell_Click" CanExecute="IsCellClickable" />
     </Window.CommandBindings>

@@ -1,0 +1,87 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:self="clr-namespace:T3WPFGui"
+        x:Class="T3WPFGui.StatisticsWindow"
+        DataContext = "{Binding RelativeSource={RelativeSource Self}}"
+        Title="Game Statistics" Height="550" Width="420" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Icon="images/icon.ico">
+    <Window.CommandBindings>
+    </Window.CommandBindings>
+
+    <StackPanel>
+        <StackPanel.Background>
+            <LinearGradientBrush EndPoint="0.75,1" MappingMode="RelativeToBoundingBox" StartPoint="0.25,0">
+                <GradientStop Color="#FFDAD490" Offset="0" />
+                <GradientStop Color="#FFB87008" Offset="1" />
+            </LinearGradientBrush>
+        </StackPanel.Background>
+        <Image Source="images/logo.png" Margin="10,15,10,10" Height="58">
+        </Image>
+
+        <TextBlock FontSize="30" FontWeight="Bold" TextAlignment="Center">Statistics</TextBlock>
+
+        <Grid>
+            <!-- cumulative -->
+            <Rectangle Fill="LightGreen" Opacity="0.1" Margin="10" />
+            <StackPanel Orientation="Vertical" Margin="15">
+                <TextBlock TextAlignment="Center" FontWeight="Bold" >Overall Statistics</TextBlock>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock FontWeight="Bold" TextAlignment="Center"  Width="140" >Opponent</TextBlock>
+                        <TextBlock FontWeight="Bold" TextAlignment="Center"   Width="80">Wins</TextBlock>
+                        <TextBlock FontWeight="Bold" TextAlignment="Center"   Width="80">Losses</TextBlock>
+                        <TextBlock FontWeight="Bold"  TextAlignment="Center"  Width="80">Ties</TextBlock>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding OverallStatistics}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" TextAlignment="Center"  Text="{Binding Opponent}" />
+                                    <TextBlock Width="80"  TextAlignment="Center" Text="{Binding Wins}" />
+                                    <TextBlock Width="80"  TextAlignment="Center" Text="{Binding Losses}" />
+                                    <TextBlock Width="80" TextAlignment="Center"  Text="{Binding Ties}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid>  <!-- Last games -->
+            <Rectangle Fill="LightGreen" Opacity="0.1" Margin="10" />
+            <StackPanel Orientation="Vertical" Margin="15">
+                <TextBlock TextAlignment="Center" FontWeight="Bold" >Last 10 Games</TextBlock>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock FontWeight="Bold" TextAlignment="Center"  Width="150" >Date</TextBlock>
+                        <TextBlock FontWeight="Bold"  TextAlignment="Center"   Width="120">Opponent</TextBlock>
+                        <TextBlock FontWeight="Bold"  TextAlignment="Center"   Width="120">Result</TextBlock>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding LastResults}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="150"  TextAlignment="Center"   Text="{Binding Date}" />
+                                    <TextBlock Width="120" TextAlignment="Center"   Text="{Binding Opponent}" />
+                                    <TextBlock Width="120" TextAlignment="Center"  Foreground="{Binding ResultColor}"  Text="{Binding Result}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <TextBlock TextAlignment="Center" ><Hyperlink Foreground="Blue" FontSize="14" Click="Close_Click">Close</Hyperlink></TextBlock>
+    </StackPanel>
+</Window>
